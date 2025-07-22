@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="600px" viewBox="0 0 800 600" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Digital Experience Illustration</title>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFD700" stop-opacity="0.3" offset="0%"></stop>
+            <stop stop-color="#FFA500" stop-opacity="0.2" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="0%" x2="0%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FFD700" stop-opacity="0.2" offset="0%"></stop>
+            <stop stop-color="#FF8C00" stop-opacity="0.15" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <!-- Background Elements -->
+        <circle fill="url(#linearGradient-1)" cx="400" cy="300" r="250" opacity="0.6"></circle>
+        <circle fill="url(#linearGradient-2)" cx="400" cy="300" r="180" opacity="0.5"></circle>
+        
+        <!-- Laptop -->
+        <g transform="translate(300, 250)">
+            <rect fill="#333333" x="0" y="0" width="200" height="120" rx="6"></rect>
+            <rect fill="#FFFFFF" x="10" y="10" width="180" height="100"></rect>
+            <rect fill="#333333" x="60" y="120" width="80" height="10"></rect>
+            <rect fill="#222222" x="40" y="130" width="120" height="5" rx="2"></rect>
+        </g>
+        
+        <!-- Mobile Phone -->
+        <g transform="translate(550, 280)">
+            <rect fill="#333333" x="0" y="0" width="60" height="110" rx="8"></rect>
+            <rect fill="#FFFFFF" x="5" y="10" width="50" height="90"></rect>
+            <circle fill="#444444" cx="30" cy="105" r="3"></circle>
+        </g>
+        
+        <!-- Tablet -->
+        <g transform="translate(180, 290)">
+            <rect fill="#333333" x="0" y="0" width="90" height="120" rx="6"></rect>
+            <rect fill="#FFFFFF" x="5" y="10" width="80" height="100"></rect>
+            <circle fill="#444444" cx="45" cy="115" r="3"></circle>
+        </g>
+        
+        <!-- Decorative Elements -->
+        <circle fill="#FFD700" opacity="0.2" cx="150" cy="150" r="20"></circle>
+        <circle fill="#FFD700" opacity="0.15" cx="650" cy="180" r="30"></circle>
+        <circle fill="#FFD700" opacity="0.25" cx="200" cy="450" r="15"></circle>
+        <circle fill="#FFD700" opacity="0.2" cx="600" cy="450" r="25"></circle>
+        
+        <!-- Abstract Lines -->
+        <path d="M100,200 C150,150 200,250 250,200 S350,150 400,200 S500,250 550,200 S650,150 700,200" stroke="#FFD700" stroke-width="2" opacity="0.3"></path>
+        <path d="M100,400 C150,350 200,450 250,400 S350,350 400,400 S500,450 550,400 S650,350 700,400" stroke="#FFD700" stroke-width="2" opacity="0.3"></path>
+        
+        <!-- Dots Pattern -->
+        <g opacity="0.2">
+            <circle fill="#FFD700" cx="120" cy="220" r="3"></circle>
+            <circle fill="#FFD700" cx="140" cy="220" r="3"></circle>
+            <circle fill="#FFD700" cx="160" cy="220" r="3"></circle>
+            <circle fill="#FFD700" cx="120" cy="240" r="3"></circle>
+            <circle fill="#FFD700" cx="140" cy="240" r="3"></circle>
+            <circle fill="#FFD700" cx="160" cy="240" r="3"></circle>
+            <circle fill="#FFD700" cx="120" cy="260" r="3"></circle>
+            <circle fill="#FFD700" cx="140" cy="260" r="3"></circle>
+            <circle fill="#FFD700" cx="160" cy="260" r="3"></circle>
+        </g>
+        
+        <g opacity="0.2" transform="translate(520, 320)">
+            <circle fill="#FFD700" cx="120" cy="220" r="3"></circle>
+            <circle fill="#FFD700" cx="140" cy="220" r="3"></circle>
+            <circle fill="#FFD700" cx="160" cy="220" r="3"></circle>
+            <circle fill="#FFD700" cx="120" cy="240" r="3"></circle>
+            <circle fill="#FFD700" cx="140" cy="240" r="3"></circle>
+            <circle fill="#FFD700" cx="160" cy="240" r="3"></circle>
+            <circle fill="#FFD700" cx="120" cy="260" r="3"></circle>
+            <circle fill="#FFD700" cx="140" cy="260" r="3"></circle>
+            <circle fill="#FFD700" cx="160" cy="260" r="3"></circle>
+        </g>
+    </g>
+</svg>
