@@ -99,6 +99,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const portfolioItems = document.querySelectorAll('.portfolio-item');
 
+    // Ensure all items are visible initially
+    portfolioItems.forEach(item => {
+        item.style.display = 'flex';
+        item.style.opacity = '1';
+    });
+
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             // Remove active class from all buttons
@@ -110,10 +116,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             portfolioItems.forEach(item => {
                 if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                    item.style.display = 'block';
+                    item.style.display = 'flex';
+                    item.style.opacity = '1';
                     item.style.animation = 'fadeInUp 0.6s ease-out';
                 } else {
                     item.style.display = 'none';
+                    item.style.opacity = '0';
                 }
             });
         });
