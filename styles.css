@@ -42,10 +42,14 @@ p {
 /* Color Variables */
 :root {
     --primary-yellow: #FFD700;
+    --dark-yellow: #E6C200;
+    --primary-color: #6366f1;
     --primary-dark: #1a1a1a;
     --primary-gray: #6b7280;
     --light-gray: #f3f4f6;
     --white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-light: #6b7280;
     --gradient-primary: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
     --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -87,11 +91,6 @@ p {
     height: auto; /* Maintain aspect ratio */
     max-height: 220px; /* Increased height */
     object-fit: contain; /* Ensure the logo fits nicely */
-    transition: transform 0.3s ease;
-}
-
-.logo:hover {
-    transform: scale(1.05);
 }
 
 .logo-text {
@@ -118,7 +117,7 @@ p {
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--primary-yellow);
+    color: #B8860B !important;
 }
 
 .nav-link::after {
@@ -158,24 +157,35 @@ p {
 .hero {
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
     background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
     overflow: hidden;
+    animation: gradientAnimation 15s ease infinite;
+    background-size: 400% 400%;
 }
 
 .hero-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
+    padding: 2rem;
+    gap: 2rem;
+    position: relative;
+    z-index: 2; /* Ensure content is above particles */
+    flex: 1;
 }
 
 .hero-content {
-    z-index: 2;
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    position: relative;
+    z-index: 3; /* Ensure text is clearly visible */
 }
 
 .hero-title {
@@ -185,20 +195,25 @@ p {
 }
 
 .hero-title-main {
-    font-size: 4rem;
-    font-weight: 700;
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 800;
     color: var(--primary-dark);
+    margin-bottom: 0.5rem;
     line-height: 1.1;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.2); /* Subtle text glow */
 }
 
 .hero-title-sub {
-    font-size: 4rem;
+    display: block;
+    font-size: 3rem;
     font-weight: 700;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    line-height: 1.1;
+    color: transparent;
+    animation: titleGlow 3s ease-in-out infinite;
 }
 
 .hero-description {
@@ -268,6 +283,9 @@ p {
     align-items: center;
     justify-content: center;
     animation: heroSvgFloat 8s ease-in-out infinite;
+    flex: 1;
+    min-width: 400px;
+    z-index: 2; /* Ensure it's above the particles */
 }
 
 .hero-image {
@@ -281,43 +299,52 @@ p {
 .hero-image img {
     max-width: 130%;
     height: auto;
-    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.2));
-    animation: heroSvgGlow 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.3));
+    animation: glowPulse 4s ease-in-out infinite alternate;
+    transform: translateX(150px);
 }
 
 @keyframes heroSvgFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes floatingParticles {
+    0% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-10px) translateX(10px); }
+    50% { transform: translateY(0) translateX(20px); }
+    75% { transform: translateY(10px) translateX(10px); }
+    100% { transform: translateY(0) translateX(0); }
 }
 
 @keyframes heroSvgGlow {
-    0%, 100% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.2)); }
-    50% { filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.4)); }
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)); }
+    50% { filter: drop-shadow(0 0 15px rgba(255, 165, 0, 0.8)); }
 }
 
-.hero-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-    position: relative;
-    z-index: 2;
+@keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(255, 165, 0, 0.5); }
 }
 
-/* Hero content styling */
-.hero-content {
-    padding-right: 20px;
-    max-width: 600px;
+/* Canvas particle styles */
+.hero-particles {
+    opacity: 0;
+    animation: fadeIn 2s forwards;
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-/* Make hero section elements stay in place */
 .hero {
-    position: relative;
     overflow: hidden;
     padding-bottom: 40px;
 }
@@ -338,7 +365,7 @@ p {
     z-index: -1;
 }
 
-/* Add subtle particle effect to hero section */
+/* Add animated particle effect to hero section */
 .hero::before {
     content: '';
     position: absolute;
@@ -347,16 +374,12 @@ p {
     right: 0;
     bottom: 0;
     background-image: 
-        radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.08) 0%, transparent 10%),
-        radial-gradient(circle at 90% 20%, rgba(255, 215, 0, 0.06) 0%, transparent 12%),
-        radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.05) 0%, transparent 8%),
-        radial-gradient(circle at 70% 60%, rgba(255, 215, 0, 0.07) 0%, transparent 10%),
-        radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.06) 0%, transparent 9%),
-        radial-gradient(circle at 80% 90%, rgba(255, 215, 0, 0.05) 0%, transparent 8%);
-    opacity: 0.7;
-    z-index: 0;
-    pointer-events: none;
-    animation: shimmerEffect 15s infinite alternate;
+        radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.15) 0%, transparent 15%),
+        radial-gradient(circle at 90% 30%, rgba(255, 165, 0, 0.12) 0%, transparent 20%),
+        radial-gradient(circle at 30% 70%, rgba(255, 215, 0, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 80% 90%, rgba(255, 165, 0, 0.12) 0%, transparent 20%);
+    z-index: -1;
+    animation: floatingParticles 20s ease-in-out infinite alternate;
 }
 
 @keyframes shimmerEffect {
@@ -1116,4 +1139,98 @@ section {
 
 .animate-on-scroll {
     animation: fadeInUp 0.6s ease-out;
+}
+
+/* Awards Carousel */
+.awards-carousel {
+    overflow: hidden;
+    width: 80%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 0;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+.awards-track {
+    display: flex;
+    animation: scroll-awards 30s linear infinite;
+    width: calc(300% + 60px);
+}
+
+.award-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    margin-right: 40px;
+    background: transparent;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 220px;
+}
+
+.award-icon {
+    font-size: 16px;
+    line-height: 1;
+    color: #333;
+    font-weight: bold;
+}
+
+.award-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.award-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+}
+
+.award-subtitle {
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+}
+
+@keyframes scroll-awards {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-33.333%);
+    }
+}
+
+.awards-carousel:hover .awards-track {
+    animation-play-state: paused;
+}
+
+/* Responsive adjustments for awards */
+@media (max-width: 768px) {
+    .award-item {
+        min-width: 180px;
+        padding: 6px 12px;
+        margin-right: 20px;
+    }
+    
+    .award-title {
+        font-size: 13px;
+    }
+    
+    .award-subtitle {
+        font-size: 11px;
+    }
+    
+    .award-icon svg {
+        width: 16px;
+        height: 16px;
+    }
 }

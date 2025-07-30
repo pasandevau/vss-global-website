@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     const navItems = document.querySelectorAll('.nav-link');
+    
+    // Initialize hero section particles
+    initHeroParticles();
 
     // Navbar scroll effect
     let lastScroll = 0;
@@ -269,17 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Logo hover effect
-    const logo = document.querySelector('.logo');
-    if (logo) {
-        logo.addEventListener('mouseenter', () => {
-            logo.style.transform = 'scale(1.1) rotate(5deg)';
-        });
-        
-        logo.addEventListener('mouseleave', () => {
-            logo.style.transform = '';
-        });
-    }
+
 
     // Scroll to top functionality (if needed)
     let scrollToTopBtn = document.createElement('button');
@@ -368,3 +361,91 @@ const optimizedScroll = debounce(() => {
 }, 10);
 
 window.addEventListener('scroll', optimizedScroll);
+
+// Hero section animated particles
+function initHeroParticles() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    
+    // Create canvas element for particles
+    const canvas = document.createElement('canvas');
+    canvas.classList.add('hero-particles');
+    canvas.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+    `;
+    hero.appendChild(canvas);
+    
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = hero.offsetWidth;
+    let height = canvas.height = hero.offsetHeight;
+    
+    // Brand colors
+    const colors = [
+        'rgba(255, 215, 0, 0.7)',  // Gold/Yellow
+        'rgba(255, 165, 0, 0.6)',   // Orange
+        'rgba(255, 215, 0, 0.4)',    // Lighter Gold
+        'rgba(255, 165, 0, 0.3)'     // Lighter Orange
+    ];
+    
+    // Particle properties
+    const particles = [];
+    const particleCount = Math.min(Math.floor(width * height / 10000), 100);
+    const maxSize = 8;
+    
+    // Create particles
+    for (let i = 0; i < particleCount; i++) {
+        particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * maxSize + 1,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            speedX: Math.random() * 0.5 - 0.25,
+            speedY: Math.random() * 0.5 - 0.25,
+            opacity: Math.random() * 0.5 + 0.3
+        });
+    }
+    
+    // Animation loop
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        // Update and draw particles
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            
+            // Update position
+            p.x += p.speedX;
+            p.y += p.speedY;
+            
+            // Wrap around edges
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+            if (p.y < 0) p.y = height;
+            if (p.y > height) p.y = 0;
+            
+            // Draw particle
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.opacity;
+            ctx.fill();
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    // Handle resize
+    window.addEventListener('resize', debounce(() => {
+        width = canvas.width = hero.offsetWidth;
+        height = canvas.height = hero.offsetHeight;
+    }, 250));
+    
+    // Start animation
+    animate();
+}
