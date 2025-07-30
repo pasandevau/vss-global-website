@@ -14,13 +14,25 @@
     <nav class="nav">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="assets/images/VSS Extended black Logo.png" alt="VSS Global" class="logo">
-                <span class="logo-text">VSS Global</span>
+                <a href="index.html">
+                    <img src="assets/images/VSS Extended black Logo.png" alt="VSS Global" class="logo">
+                    <span class="logo-text">VSS Global</span>
+                </a>
             </div>
             <div class="nav-links">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#portfolio" class="nav-link">Portfolio</a>
+                <a href="index.html" class="nav-link active">Home</a>
+                <div class="nav-dropdown">
+                    <a href="#services" class="nav-link">Services</a>
+                    <div class="dropdown-content">
+                        <a href="web-development.html">Web Development</a>
+                        <a href="software-development.html">Software Development</a>
+                        <a href="mobile-development.html">Mobile Development</a>
+                        <a href="digital-marketing.html">Digital Marketing</a>
+                        <a href="ui-ux-design.html">UI/UX Design</a>
+                        <a href="analytics-optimization.html">Analytics & Optimization</a>
+                    </div>
+                </div>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
                 <a href="#reviews" class="nav-link">Reviews</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
@@ -46,7 +58,7 @@
                 </p>
                 <div class="hero-buttons">
                     <button class="btn btn-primary">Start Your Project</button>
-                    <button class="btn btn-secondary">View Our Work</button>
+                    <a href="portfolio.html" class="btn btn-secondary">View Our Work</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -659,6 +671,10 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="portfolio-cta">
+                <a href="portfolio.html" class="btn btn-primary">View All Projects</a>
+            </div>
         </div>
     </section>
 
@@ -916,7 +932,7 @@
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Our Process</a></li>
                         <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
                     </ul>
                 </div>
 

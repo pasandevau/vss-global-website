@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - VSS Global | Our Work & Projects</title>
+    <meta name="description" content="Explore VSS Global's portfolio of web development, mobile apps, digital marketing campaigns, and UI/UX design projects. See our innovative solutions in action.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/images/VSS Extended black Logo.png" alt="VSS Global" class="logo">
+                    <span class="logo-text">VSS Global</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link">Services</a>
+                    <div class="dropdown-content">
+                        <a href="web-development.html">Web Development</a>
+                        <a href="software-development.html">Software Development</a>
+                        <a href="mobile-development.html">Mobile Development</a>
+                        <a href="digital-marketing.html">Digital Marketing</a>
+                        <a href="ui-ux-design.html">UI/UX Design</a>
+                        <a href="analytics-optimization.html">Analytics & Optimization</a>
+                    </div>
+                </div>
+                <a href="portfolio.html" class="nav-link active">Portfolio</a>
+                <a href="index.html#reviews" class="nav-link">Reviews</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Service Hero Section -->
+    <section class="service-hero">
+        <div class="container">
+            <div class="service-hero-content">
+                <div class="service-icon-large">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="3" y1="9" x2="21" y2="9"/>
+                        <line x1="9" y1="21" x2="9" y2="9"/>
+                        <circle cx="12" cy="6" r="1"/>
+                        <circle cx="6" cy="15" r="1"/>
+                        <circle cx="18" cy="15" r="1"/>
+                    </svg>
+                </div>
+                <h1>Our Portfolio</h1>
+                <p class="service-hero-description">Discover our innovative projects and successful digital transformations. From stunning websites to powerful mobile apps, explore how we bring creative ideas to life and deliver exceptional results for our clients.</p>
+                <div class="service-hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Start Your Project</a>
+                    <a href="#portfolio-grid" class="btn btn-secondary">View Projects</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Filter -->
+    <section id="portfolio-grid" class="service-features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Work</h2>
+                <p>Explore our diverse portfolio of successful projects across different industries and technologies</p>
+            </div>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="design">UI/UX Design</button>
+                <button class="filter-btn" data-filter="marketing">Digital Marketing</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Web Development Projects -->
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=800" alt="E-commerce Platform">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Featured</div>
+                        <div class="portfolio-category">Web Design & E-commerce</div>
+                        <h3>E-commerce Platform</h3>
+                        <p class="portfolio-description">Modern online store with advanced features, payment integration, and inventory management. Increased sales by 150% within 6 months.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                4 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: ShopTech Inc.
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/5669602/pexels-photo-5669602.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Corporate Website">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Corporate</div>
+                        <div class="portfolio-category">Professional Services</div>
+                        <h3>Corporate Website</h3>
+                        <p class="portfolio-description">Professional business website with CMS, client portals, and secure document sharing. Improved client engagement by 65%.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                3 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: BizCorp Ltd.
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>WordPress</span>
+                            <span>PHP</span>
+                            <span>MySQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=800" alt="SaaS Dashboard">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Enterprise</div>
+                        <div class="portfolio-category">SaaS Platform</div>
+                        <h3>DataFlow Analytics</h3>
+                        <p class="portfolio-description">Comprehensive business intelligence dashboard with real-time analytics, custom reporting, and data visualization. Processes 1M+ data points daily for enterprise clients.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                15 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: Enterprise Solutions Inc.
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>Vue.js</span>
+                            <span>Python</span>
+                            <span>PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile App Projects -->
+                <div class="portfolio-item" data-category="mobile">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Fitness Tracking App">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">New</div>
+                        <div class="portfolio-category">Mobile App Development</div>
+                        <h3>FitTrack Pro</h3>
+                        <p class="portfolio-description">A comprehensive fitness tracking app with personalized workout plans, nutrition tracking, and detailed progress analytics. Achieved 50,000+ downloads in the first 6 months.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                6 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: FitTech Inc.
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>React Native</span>
+                            <span>Firebase</span>
+                            <span>iOS & Android</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="mobile">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Food Delivery App">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Community</div>
+                        <div class="portfolio-category">Mobile Application</div>
+                        <h3>ShopLocal Adelaide</h3>
+                        <p class="portfolio-description">A community-focused mobile app connecting users with local Adelaide businesses, featuring exclusive deals, events, and a rewards program to support the local economy.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                6 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: Adelaide City Council
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>React Native</span>
+                            <span>Firebase</span>
+                            <span>Community</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Development Projects -->
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Real Estate Platform">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Premium</div>
+                        <div class="portfolio-category">Web Development</div>
+                        <h3>Adelaide Property Hub</h3>
+                        <p class="portfolio-description">A comprehensive real estate platform featuring property listings, virtual tours, mortgage calculators, and agent management system. Increased property inquiries by 180%.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                8 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: PropertyMax SA
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/4386321/pexels-photo-4386321.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Healthcare Portal">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Healthcare</div>
+                        <div class="portfolio-category">Web Application</div>
+                        <h3>MediConnect Portal</h3>
+                        <p class="portfolio-description">Patient management system with appointment booking, medical records, telemedicine integration, and prescription management. Serving 15,000+ patients across Adelaide.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                12 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: Adelaide Health Network
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>Vue.js</span>
+                            <span>Laravel</span>
+                            <span>MySQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Restaurant Management">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Featured</div>
+                        <div class="portfolio-category">Web Platform</div>
+                        <h3>RestaurantOS</h3>
+                        <p class="portfolio-description">Complete restaurant management system with online ordering, table reservations, inventory tracking, and staff scheduling. Used by 50+ restaurants in Adelaide.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                10 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: Adelaide Hospitality Group
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>Django</span>
+                            <span>React</span>
+                            <span>Redis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile App Projects -->
+                <div class="portfolio-item" data-category="mobile">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/4386321/pexels-photo-4386321.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Banking App">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Secure</div>
+                        <div class="portfolio-category">Mobile Banking</div>
+                        <h3>SecureBank Mobile</h3>
+                        <p class="portfolio-description">Next-generation mobile banking app with biometric authentication, real-time fraud detection, and AI-powered financial insights. 4.8★ rating with 100K+ downloads.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                14 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: Adelaide Credit Union
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>Flutter</span>
+                            <span>Firebase</span>
+                            <span>Blockchain</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="mobile">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Travel App">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Travel</div>
+                        <div class="portfolio-category">Travel & Tourism</div>
+                        <h3>Explore Adelaide</h3>
+                        <p class="portfolio-description">Interactive travel companion featuring AR city guides, local recommendations, event discovery, and social sharing. Official tourism app for Adelaide with 75K+ active users.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                9 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: South Australia Tourism
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>React Native</span>
+                            <span>ARKit</span>
+                            <span>Google Maps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="mobile">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Education App">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Education</div>
+                        <div class="portfolio-category">EdTech</div>
+                        <h3>StudyMate Pro</h3>
+                        <p class="portfolio-description">Comprehensive learning platform with interactive lessons, progress tracking, peer collaboration, and AI tutoring. Used by 25,000+ students across Australian universities.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                11 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: University of Adelaide
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>Swift</span>
+                            <span>Kotlin</span>
+                            <span>TensorFlow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UI/UX Design Projects -->
+                <div class="portfolio-item" data-category="design">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Banking App Design">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Award Winner</div>
+                        <div class="portfolio-category">UI/UX Design</div>
+                        <h3>FinanceFlow Redesign</h3>
+                        <p class="portfolio-description">Complete redesign of a financial management app focusing on accessibility and user experience. Winner of the 2024 Australian UX Design Awards for Best Mobile Interface.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                5 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: FinTech Australia
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>Figma</span>
+                            <span>User Research</span>
+                            <span>Prototyping</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="design">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800" alt="E-learning Platform">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Innovative</div>
+                        <div class="portfolio-category">Educational Design</div>
+                        <h3>LearnHub Interface</h3>
+                        <p class="portfolio-description">Modern e-learning platform design with gamification elements, progress visualization, and collaborative features. Increased student engagement by 240% and completion rates by 85%.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                7 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: EduTech Solutions
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>Adobe XD</span>
+                            <span>User Testing</span>
+                            <span>Design Systems</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Marketing Projects -->
+                <div class="portfolio-item" data-category="marketing">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Brand Campaign">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">Viral</div>
+                        <div class="portfolio-category">Digital Marketing</div>
+                        <h3>Adelaide Fashion Week</h3>
+                        <p class="portfolio-description">Comprehensive digital marketing campaign for Adelaide Fashion Week featuring influencer partnerships, social media strategy, and event promotion. Achieved 2.5M impressions and 40K event attendees.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                4 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: Fashion Council SA
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>Social Media</span>
+                            <span>Influencer Marketing</span>
+                            <span>Event Promotion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="marketing">
+                    <div class="portfolio-image">
+                        <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800" alt="E-commerce Growth">
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-badge">ROI 450%</div>
+                        <div class="portfolio-category">E-commerce Marketing</div>
+                        <h3>WineConnect Australia</h3>
+                        <p class="portfolio-description">Complete digital transformation for premium wine retailer including SEO optimization, Google Ads, email marketing, and conversion rate optimization. Achieved 450% ROI and 300% sales growth.</p>
+                        <div class="portfolio-meta">
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                8 Months
+                            </span>
+                            <span class="meta-item">
+                                <svg class="meta-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Client: Barossa Valley Wines
+                            </span>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span>Google Ads</span>
+                            <span>SEO</span>
+                            <span>Email Marketing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="service-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your Project?</h2>
+                <p>Let's discuss how we can bring your vision to life with our expertise and innovative solutions.</p>
+                <div class="cta-buttons">
+                    <a href="index.html#contact" class="btn btn-primary">Get Started</a>
+                    <a href="index.html#contact" class="btn btn-secondary">Schedule Consultation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/images/VSS Extended White Logo.png" alt="VSS Global">
+                        <span>VSS Global</span>
+                    </div>
+                    <p>Transforming businesses through exceptional digital experiences and innovative solutions.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="web-development.html">Web Design</a></li>
+                        <li><a href="mobile-development.html">Mobile Development</a></li>
+                        <li><a href="digital-marketing.html">Digital Marketing</a></li>
+                        <li><a href="ui-ux-design.html">Consulting</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="index.html#home">About Us</a></li>
+                        <li><a href="index.html#services">Our Process</a></li>
+                        <li><a href="index.html#contact">Careers</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 VSS Global. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

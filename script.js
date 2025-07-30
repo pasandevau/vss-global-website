@@ -30,25 +30,33 @@ document.addEventListener('DOMContentLoaded', function() {
         navToggle.classList.toggle('active');
     });
 
-    // Smooth scrolling for navigation links
+    // Smooth scrolling for navigation links (only for internal anchor links)
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
-            e.preventDefault();
             const targetId = item.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
             
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+            // Only prevent default for internal anchor links (starting with #)
+            if (targetId && targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetSection = document.querySelector(targetId);
                 
-                // Update active nav item
-                navItems.forEach(navItem => navItem.classList.remove('active'));
-                item.classList.add('active');
-                
-                // Close mobile menu if open
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active nav item
+                    navItems.forEach(navItem => navItem.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    navToggle.classList.remove('active');
+                }
+            } else {
+                // For external links (like portfolio.html), just close mobile menu if open
                 navLinks.classList.remove('active');
                 navToggle.classList.remove('active');
             }
@@ -101,29 +109,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ensure all items are visible initially
     portfolioItems.forEach(item => {
-        item.style.display = 'flex';
+        item.classList.remove('hidden');
         item.style.opacity = '1';
+        item.style.transform = 'scale(1)';
     });
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             // Remove active class from all buttons
-            filterBtns.forEach(filterBtn => filterBtn.classList.remove('active'));
+            filterBtns.forEach(button => button.classList.remove('active'));
             // Add active class to clicked button
             btn.classList.add('active');
             
-            const filterValue = btn.getAttribute('data-filter');
+            const filter = btn.getAttribute('data-filter');
             
+            // First, fade out all items
             portfolioItems.forEach(item => {
-                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                    item.style.display = 'flex';
-                    item.style.opacity = '1';
-                    item.style.animation = 'fadeInUp 0.6s ease-out';
-                } else {
-                    item.style.display = 'none';
-                    item.style.opacity = '0';
-                }
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.8)';
             });
+            
+            // After a short delay, hide/show items and fade in visible ones
+            setTimeout(() => {
+                portfolioItems.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    
+                    if (filter === 'all' || category === filter) {
+                        item.classList.remove('hidden');
+                        // Fade in with slight delay for staggered effect
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            }, 200);
         });
     });
 
