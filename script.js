@@ -69,7 +69,12 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', (e) => {
             const buttonText = button.textContent.trim().toLowerCase();
             
-            // Handle different button types
+            // Skip buttons that have href attributes (let them work normally)
+            if (button.hasAttribute('href')) {
+                return; // Let the link work normally
+            }
+            
+            // Handle different button types for buttons without href
             if (buttonText.includes('start your project') || buttonText.includes('get started')) {
                 e.preventDefault();
                 const contactSection = document.querySelector('#contact');

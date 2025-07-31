@@ -457,6 +457,9 @@ section {
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .service-card::before {
@@ -513,6 +516,8 @@ section {
 .service-card ul {
     list-style: none;
     padding: 0;
+    flex-grow: 1;
+    margin-bottom: 0;
 }
 
 .service-card li {
@@ -2173,5 +2178,528 @@ section {
     
     .nav-dropdown:hover .dropdown-content {
         display: block;
+    }
+}
+
+/* Contact Page Specific Styles */
+
+/* Process Steps */
+.service-process {
+    padding: 120px 0;
+    background: var(--white);
+}
+
+.process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin-top: 64px;
+}
+
+.process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 32px;
+    background: var(--light-gray);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    box-shadow: var(--shadow-light);
+}
+
+.step-content h3 {
+    color: var(--primary-dark);
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+}
+
+.step-content p {
+    color: var(--primary-gray);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Contact Form Enhancements */
+.contact-section {
+    padding: 120px 0;
+    background: var(--light-gray);
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+}
+
+.contact-info h2 {
+    color: var(--primary-dark);
+    margin-bottom: 16px;
+}
+
+.contact-info p {
+    color: var(--primary-gray);
+    margin-bottom: 32px;
+    font-size: 1.1rem;
+}
+
+.contact-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contact-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.contact-feature .feature-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--primary-yellow);
+    flex-shrink: 0;
+}
+
+.contact-feature span {
+    color: var(--primary-gray);
+    font-weight: 500;
+}
+
+/* Card Button Wrapper for Consultation Cards */
+.card-button-wrapper {
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+/* Make consultation cards use flexbox for button positioning */
+.service-features-section .feature-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Enhanced Contact Form */
+.contact-form {
+    background: var(--white);
+    padding: 48px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-medium);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: var(--white);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-yellow);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.form-group label {
+    position: absolute;
+    left: 20px;
+    top: 16px;
+    color: var(--primary-gray);
+    font-size: 1rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background: var(--white);
+    padding: 0 8px;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group select:focus + label,
+.form-group select:not([value=""]) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 16px;
+    font-size: 0.875rem;
+    color: var(--primary-dark);
+    font-weight: 500;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.checkbox-group label {
+    position: static;
+    color: var(--primary-gray);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    background: none;
+    padding: 0;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.form-note {
+    font-size: 0.875rem;
+    color: var(--primary-gray);
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+/* Contact Form Button */
+.contact-form .btn {
+    width: 100%;
+    padding: 18px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+/* Responsive Design for Contact Page */
+@media (max-width: 768px) {
+    .process-step {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+    
+    .contact-form {
+        padding: 32px 24px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .service-process {
+        padding: 80px 0;
+    }
+    
+    .contact-section {
+        padding: 80px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .process-steps {
+        gap: 32px;
+    }
+    
+    .process-step {
+        padding: 24px;
+    }
+    
+    .step-number {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+    
+    .contact-form {
+        padding: 24px 16px;
+    }
+}
+
+/* CTA Section Styles */
+.cta-section {
+    padding: 120px 0;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #2d2d2d 100%);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23FFD700" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+}
+
+.cta-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.cta-content {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: none;
+}
+
+.cta-text {
+    text-align: left;
+    padding-right: 10px;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--white) 0%, var(--primary-yellow) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.cta-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 32px;
+}
+
+.cta-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cta-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cta-feature-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--primary-yellow);
+    flex-shrink: 0;
+}
+
+.cta-feature span {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.cta-visual {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.cta-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    margin-top: 70px;
+}
+
+.stat-item {
+    text-align: left;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 215, 0, 0.4);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-yellow);
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.google-reviews {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    font-size: 0.85rem;
+}
+
+.google-reviews svg {
+    flex-shrink: 0;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-large {
+    padding: 18px 36px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    min-width: 220px;
+}
+
+/* Service Card Button Styles */
+.service-btn {
+    display: inline-block;
+    margin-top: auto;
+    padding: 12px 24px;
+    background: var(--primary-yellow);
+    color: var(--primary-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-yellow);
+    align-self: flex-start;
+}
+
+.service-btn:hover {
+    background: transparent;
+    color: var(--primary-yellow);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+/* CTA Section Responsive */
+@media (max-width: 768px) {
+    .cta-section {
+        padding: 80px 0;
+    }
+    
+    .cta-wrapper {
+        padding: 0 20px;
+    }
+    
+    .cta-content {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        text-align: left;
+        margin-bottom: 40px;
+    }
+    
+    .cta-title {
+        font-size: 2rem;
+    }
+    
+    .cta-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    
+    .stat-item {
+        padding: 16px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    
+    .btn-large {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-wrapper {
+        padding: 0 16px;
+    }
+    
+    .cta-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .stat-item {
+        padding: 12px;
     }
 }
