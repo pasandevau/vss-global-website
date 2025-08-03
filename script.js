@@ -484,3 +484,344 @@ function initHeroParticles() {
     // Start animation
     animate();
 }
+
+// Appointment Booking Calendar Functionality
+class BookingCalendar {
+    constructor() {
+        this.currentDate = new Date();
+        this.selectedDate = null;
+        this.selectedTime = null;
+        this.currentMonth = this.currentDate.getMonth();
+        this.currentYear = this.currentDate.getFullYear();
+        
+        this.monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        
+        this.init();
+    }
+    
+    init() {
+        if (!document.querySelector('.booking-calendar')) return;
+        
+        this.bindEvents();
+        this.renderCalendar();
+        this.handleMeetingTypeButtons();
+    }
+    
+    bindEvents() {
+        const prevBtn = document.getElementById('prevMonth');
+        const nextBtn = document.getElementById('nextMonth');
+        const timeSlots = document.querySelectorAll('.time-slot');
+        const appointmentForm = document.getElementById('appointmentForm');
+        const meetingTypeSelect = document.getElementById('meetingType');
+        
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => this.previousMonth());
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => this.nextMonth());
+        }
+        
+        timeSlots.forEach(slot => {
+            slot.addEventListener('click', (e) => this.selectTime(e));
+        });
+        
+        if (appointmentForm) {
+            appointmentForm.addEventListener('submit', (e) => this.handleFormSubmit(e));
+        }
+        
+        if (meetingTypeSelect) {
+            meetingTypeSelect.addEventListener('change', (e) => {
+                this.updateSummaryType(e.target.value);
+                this.handleSelectChange(e.target);
+            });
+        }
+        
+        // Handle project type select
+        const projectTypeSelect = document.getElementById('projectType');
+        if (projectTypeSelect) {
+            projectTypeSelect.addEventListener('change', (e) => this.handleSelectChange(e.target));
+        }
+    }
+    
+    renderCalendar() {
+        const monthElement = document.getElementById('currentMonth');
+        const calendarDays = document.getElementById('calendarDays');
+        
+        if (!monthElement || !calendarDays) return;
+        
+        monthElement.textContent = `${this.monthNames[this.currentMonth]} ${this.currentYear}`;
+        
+        const firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
+        const daysInMonth = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+        const today = new Date();
+        
+        let daysHTML = '';
+        
+        // Add empty cells for days before the first day of the month
+        for (let i = 0; i < firstDay; i++) {
+            daysHTML += '<button class="calendar-day other-month"></button>';
+        }
+        
+        // Add days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(this.currentYear, this.currentMonth, day);
+            const isToday = date.toDateString() === today.toDateString();
+            const isPast = date < today.setHours(0, 0, 0, 0);
+            
+            let classes = 'calendar-day';
+            
+            if (isPast) {
+                classes += ' unavailable';
+            } else {
+                classes += ' available';
+            }
+            
+            if (this.selectedDate && 
+                this.selectedDate.getDate() === day && 
+                this.selectedDate.getMonth() === this.currentMonth && 
+                this.selectedDate.getFullYear() === this.currentYear) {
+                classes += ' selected';
+            }
+            
+            daysHTML += `<button class="${classes}" data-date="${this.currentYear}-${(this.currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}">${day}</button>`;
+        }
+        
+        calendarDays.innerHTML = daysHTML;
+        
+        // Add click events to available days
+        calendarDays.querySelectorAll('.calendar-day.available').forEach(day => {
+            day.addEventListener('click', (e) => this.selectDate(e));
+        });
+    }
+    
+    selectDate(e) {
+        const dateStr = e.target.getAttribute('data-date');
+        if (!dateStr) return;
+        
+        this.selectedDate = new Date(dateStr + 'T00:00:00');
+        
+        // Remove previous selection
+        document.querySelectorAll('.calendar-day.selected').forEach(day => {
+            day.classList.remove('selected');
+        });
+        
+        // Add selection to clicked day
+        e.target.classList.add('selected');
+        
+        // Update selected date text
+        const selectedDateText = document.getElementById('selectedDateText');
+        if (selectedDateText) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            selectedDateText.textContent = this.selectedDate.toLocaleDateString('en-AU', options);
+        }
+        
+        // Show time slots
+        const timeSlots = document.getElementById('timeSlots');
+        if (timeSlots) {
+            timeSlots.style.display = 'block';
+        }
+        
+        // Reset time selection
+        this.selectedTime = null;
+        document.querySelectorAll('.time-slot.selected').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+        
+        // Hide booking form
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            bookingForm.style.display = 'none';
+        }
+        
+        // Update summary date
+        this.updateSummaryDate();
+    }
+    
+    selectTime(e) {
+        if (!this.selectedDate) return;
+        
+        this.selectedTime = e.target.getAttribute('data-time');
+        
+        // Remove previous selection
+        document.querySelectorAll('.time-slot.selected').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+        
+        // Add selection to clicked time
+        e.target.classList.add('selected');
+        
+        // Show booking form
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            bookingForm.style.display = 'block';
+        }
+        
+        // Update summary time
+        this.updateSummaryTime();
+    }
+    
+    previousMonth() {
+        this.currentMonth--;
+        if (this.currentMonth < 0) {
+            this.currentMonth = 11;
+            this.currentYear--;
+        }
+        this.renderCalendar();
+    }
+    
+    nextMonth() {
+        this.currentMonth++;
+        if (this.currentMonth > 11) {
+            this.currentMonth = 0;
+            this.currentYear++;
+        }
+        this.renderCalendar();
+    }
+    
+    updateSummaryDate() {
+        const summaryDate = document.getElementById('summaryDate');
+        if (summaryDate && this.selectedDate) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            summaryDate.textContent = this.selectedDate.toLocaleDateString('en-AU', options);
+        }
+    }
+    
+    updateSummaryTime() {
+        const summaryTime = document.getElementById('summaryTime');
+        if (summaryTime && this.selectedTime) {
+            const time24 = this.selectedTime;
+            const [hours, minutes] = time24.split(':');
+            const time12 = new Date(2000, 0, 1, parseInt(hours), parseInt(minutes)).toLocaleTimeString('en-AU', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+            summaryTime.textContent = `${time12} (ACST)`;
+        }
+    }
+    
+    updateSummaryType(type) {
+        const summaryType = document.getElementById('summaryType');
+        if (summaryType) {
+            const typeText = type === 'in-person' ? 'In-Person Meeting' : 
+                           type === 'video-call' ? 'Video Call' : '';
+            summaryType.textContent = typeText;
+        }
+    }
+    
+    handleSelectChange(selectElement) {
+        if (selectElement.value !== '') {
+            selectElement.classList.add('has-value');
+        } else {
+            selectElement.classList.remove('has-value');
+        }
+    }
+    
+    handleMeetingTypeButtons() {
+        const meetingTypeButtons = document.querySelectorAll('[data-meeting-type]');
+        
+        meetingTypeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const meetingType = button.getAttribute('data-meeting-type');
+                
+                // Scroll to booking calendar
+                const bookingSection = document.getElementById('booking-calendar');
+                if (bookingSection) {
+                    bookingSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Pre-select meeting type after a short delay to allow scrolling
+                setTimeout(() => {
+                    this.preselectMeetingType(meetingType);
+                }, 800);
+            });
+        });
+    }
+    
+    preselectMeetingType(meetingType) {
+        const meetingTypeSelect = document.getElementById('meetingType');
+        if (meetingTypeSelect) {
+            meetingTypeSelect.value = meetingType;
+            meetingTypeSelect.classList.add('has-value');
+            this.updateSummaryType(meetingType);
+            
+            // Add a subtle highlight effect to show it was pre-selected
+            meetingTypeSelect.style.borderColor = 'var(--primary-yellow)';
+            meetingTypeSelect.style.boxShadow = '0 0 0 3px rgba(255, 215, 0, 0.2)';
+            
+            setTimeout(() => {
+                meetingTypeSelect.style.borderColor = '';
+                meetingTypeSelect.style.boxShadow = '';
+            }, 2000);
+        }
+    }
+    
+    handleFormSubmit(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const appointmentData = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            meetingType: formData.get('meetingType'),
+            projectType: formData.get('projectType'),
+            description: formData.get('description'),
+            date: this.selectedDate.toISOString().split('T')[0],
+            time: this.selectedTime
+        };
+        
+        // Here you would typically send the data to your backend
+        console.log('Appointment booked:', appointmentData);
+        
+        // Show success message
+        alert(`Thank you ${appointmentData.name}! Your appointment has been booked for ${this.selectedDate.toLocaleDateString('en-AU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} at ${document.getElementById('summaryTime').textContent}. We'll send you a confirmation email shortly.`);
+        
+        // Reset form
+        this.resetBooking();
+    }
+    
+    resetBooking() {
+        this.selectedDate = null;
+        this.selectedTime = null;
+        
+        // Reset UI
+        document.querySelectorAll('.calendar-day.selected').forEach(day => {
+            day.classList.remove('selected');
+        });
+        
+        document.querySelectorAll('.time-slot.selected').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+        
+        const selectedDateText = document.getElementById('selectedDateText');
+        if (selectedDateText) {
+            selectedDateText.textContent = 'Please choose a date from the calendar';
+        }
+        
+        const timeSlots = document.getElementById('timeSlots');
+        if (timeSlots) {
+            timeSlots.style.display = 'none';
+        }
+        
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            bookingForm.style.display = 'none';
+            bookingForm.reset();
+        }
+    }
+}
+
+// Initialize booking calendar when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    new BookingCalendar();
+});

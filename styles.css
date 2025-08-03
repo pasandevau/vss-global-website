@@ -136,6 +136,30 @@ p {
     width: 100%;
 }
 
+/* Navigation CTA Button */
+.nav-cta-btn {
+    background: var(--primary-yellow) !important;
+    color: #000000 !important;
+    padding: 12px 24px !important;
+    border-radius: 25px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    border: 2px solid var(--primary-yellow) !important;
+    text-decoration: none !important;
+}
+
+.nav-cta-btn:hover {
+    background: transparent !important;
+    color: var(--primary-yellow) !important;
+    border-color: var(--primary-yellow) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3) !important;
+}
+
+.nav-cta-btn::after {
+    display: none !important;
+}
+
 .nav-toggle {
     display: none;
     flex-direction: column;
@@ -3148,6 +3172,544 @@ section {
     }
 }
 
+/* ===== PROCESS PAGE STYLES ===== */
+
+/* Process Introduction */
+.process-intro {
+    padding: 80px 0;
+    background: var(--light-gray);
+}
+
+.process-intro .section-header {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.process-intro .section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 24px;
+}
+
+.process-intro .section-header p {
+    font-size: 1.2rem;
+    color: var(--primary-gray);
+    line-height: 1.7;
+}
+
+/* Process Phases */
+.process-phases {
+    padding: 120px 0;
+    background: var(--white);
+}
+
+.phases-grid {
+    display: grid;
+    gap: 60px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.phase-card {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 40px;
+    align-items: start;
+    padding: 40px;
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.phase-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.phase-number {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-yellow), #E6C200);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin: 0 auto;
+}
+
+.phase-content h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 8px;
+}
+
+.phase-content h4 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.phase-content p {
+    font-size: 1.1rem;
+    color: var(--primary-gray);
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.phase-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.phase-features li {
+    padding: 8px 0;
+    padding-left: 30px;
+    position: relative;
+    font-size: 1rem;
+    color: var(--primary-dark);
+    font-weight: 500;
+}
+
+.phase-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary-yellow);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Methodologies Section */
+.methodologies-section {
+    padding: 120px 0;
+    background: var(--light-gray);
+}
+
+.methodologies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.methodology-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: var(--shadow-light);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.methodology-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.methodology-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-yellow), #E6C200);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.methodology-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--primary-dark);
+}
+
+.methodology-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 16px;
+}
+
+.methodology-card p {
+    font-size: 1rem;
+    color: var(--primary-gray);
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.methodology-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.feature-tag {
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--primary-dark);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Why Process Section */
+.why-process-section {
+    padding: 120px 0;
+    background: var(--white);
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.benefit-item {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-yellow), #E6C200);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.benefit-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--primary-dark);
+}
+
+.benefit-item h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 16px;
+}
+
+.benefit-item p {
+    font-size: 1rem;
+    color: var(--primary-gray);
+    line-height: 1.6;
+}
+
+/* Process Page Responsive */
+@media (max-width: 768px) {
+    .phase-card {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 30px 20px;
+        text-align: center;
+    }
+    
+    .phase-number {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .phase-content h3 {
+        font-size: 1.5rem;
+    }
+    
+    .methodologies-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 30px;
+        max-width: 100%;
+    }
+    
+    .process-intro .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .process-intro .section-header p {
+        font-size: 1.1rem;
+    }
+}
+
+/* ===== SERVICE CTA SECTION STYLES ===== */
+
+.service-cta {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-cta::before {
+    display: none;
+}
+
+.service-cta .container {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-content {
+    text-align: center;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 20px !important;
+}
+
+/* NUCLEAR OVERRIDE FOR CTA HEADING */
+#contact h2,
+#contact .cta-content h2,
+section#contact h2,
+section.service-cta h2,
+.service-cta h2,
+.service-cta .container h2,
+.service-cta .container .cta-content h2,
+.service-cta .cta-content h2,
+.cta-content h2 {
+    color: #ff0000 !important;
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 20px !important;
+    text-shadow: none !important;
+    background: none !important;
+    background-color: transparent !important;
+    opacity: 1 !important;
+    z-index: 999 !important;
+    position: relative !important;
+    display: block !important;
+    filter: none !important;
+}
+
+/* New Clean CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.cta-wrapper {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-wrapper h2 {
+    color: #ffffff;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+.cta-wrapper p {
+    color: #cccccc;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.cta-btn.primary {
+    background: var(--primary-yellow);
+    color: #000000;
+    border-color: var(--primary-yellow);
+}
+
+.cta-btn.primary:hover {
+    background: transparent;
+    color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+    transform: translateY(-2px);
+}
+
+.cta-btn.secondary {
+    background: transparent;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.cta-btn.secondary:hover {
+    background: #ffffff;
+    color: #000000;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .cta-section {
+        padding: 60px 0;
+    }
+    
+    .cta-wrapper h2 {
+        font-size: 2.2rem;
+    }
+    
+    .cta-wrapper p {
+        font-size: 1.1rem;
+    }
+    
+    .cta-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    color: #666666 !important;
+    margin-bottom: 35px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 0;
+    text-align: center;
+    opacity: 1 !important;
+    z-index: 10;
+    position: relative;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-buttons .btn {
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    min-width: 180px;
+    text-align: center;
+    display: inline-block;
+    margin: 0 8px;
+}
+
+.cta-buttons .btn-primary {
+    background: linear-gradient(135deg, var(--primary-yellow), #E6C200);
+    color: var(--primary-dark);
+    border: 2px solid var(--primary-yellow);
+}
+
+.cta-buttons .btn-primary:hover {
+    background: var(--primary-dark);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+}
+
+.cta-buttons .btn-secondary {
+    background: transparent;
+    color: var(--primary-dark);
+    border: 2px solid var(--primary-dark);
+}
+
+.cta-buttons .btn-secondary:hover {
+    background: var(--primary-dark);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Service CTA Responsive */
+@media (max-width: 768px) {
+    .service-cta {
+        padding: 60px 0;
+    }
+    
+    .cta-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .cta-content p {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    
+    .cta-buttons .btn {
+        width: 100%;
+        max-width: 280px;
+        margin: 0;
+    }
+}
+
 @media (max-width: 480px) {
     .cta-wrapper {
         padding: 0 16px;
@@ -3160,5 +3722,565 @@ section {
     
     .stat-item {
         padding: 12px;
+    }
+}
+
+/* Homepage CTA Section */
+.homepage-cta {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 100px 0;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.homepage-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.homepage-cta-wrapper {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.homepage-cta-content {
+    max-width: 800px;
+    margin: 0 auto 60px;
+}
+
+.homepage-cta-content h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    line-height: 1.2;
+    color: white;
+}
+
+.homepage-cta-content p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    color: #cccccc;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.homepage-cta-features {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+.homepage-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #cccccc;
+}
+
+.homepage-feature svg {
+    width: 20px;
+    height: 20px;
+    color: var(--primary-yellow);
+    flex-shrink: 0;
+}
+
+.homepage-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.homepage-stat {
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.homepage-stat:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 215, 0, 0.4);
+}
+
+.homepage-stat .stat-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-yellow);
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.homepage-stat .stat-label {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.homepage-cta-buttons {
+    display: inline-flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+}
+
+.homepage-cta-buttons .btn {
+    padding: 16px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.homepage-cta-buttons .btn-primary {
+    background: var(--primary-yellow);
+    color: #000000;
+    border: 2px solid var(--primary-yellow);
+}
+
+.homepage-cta-buttons .btn-primary:hover {
+    background: transparent;
+    color: var(--primary-yellow);
+    transform: translateY(-2px);
+}
+
+.homepage-cta-buttons .btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.homepage-cta-buttons .btn-secondary:hover {
+    background: #ffffff;
+    color: #000000;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .homepage-cta {
+        padding: 80px 0;
+    }
+    
+    .homepage-cta-content h2 {
+        font-size: 2.2rem;
+    }
+    
+    .homepage-cta-content p {
+        font-size: 1.1rem;
+    }
+    
+    .homepage-cta-features {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .homepage-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .homepage-cta-buttons {
+        gap: 16px;
+    }
+    
+    .homepage-cta-buttons .btn {
+        width: auto;
+        max-width: none;
+        padding: 14px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .homepage-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .homepage-stat {
+        padding: 20px 15px;
+    }
+    
+    .homepage-cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .homepage-cta-buttons .btn {
+        width: auto;
+        max-width: 280px;
+        padding: 12px 20px;
+    }
+}
+
+/* Appointment Booking Calendar Styles */
+.booking-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.booking-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 60px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.booking-calendar {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+.calendar-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin: 0;
+}
+
+.calendar-nav {
+    background: var(--primary-yellow);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.calendar-nav:hover {
+    background: var(--dark-yellow);
+    transform: scale(1.1);
+}
+
+.calendar-nav svg {
+    width: 20px;
+    height: 20px;
+    color: #000;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary-gray);
+    font-size: 0.9rem;
+    padding: 12px 0;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    background: transparent;
+}
+
+.calendar-day:hover {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.calendar-day.available {
+    background: #f8f9fa;
+    color: var(--primary-dark);
+}
+
+.calendar-day.available:hover {
+    background: var(--primary-yellow);
+    color: #000;
+    transform: scale(1.05);
+}
+
+.calendar-day.selected {
+    background: var(--primary-yellow);
+    color: #000;
+    font-weight: 700;
+    transform: scale(1.05);
+}
+
+.calendar-day.unavailable {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.calendar-day.other-month {
+    color: #ddd;
+    cursor: not-allowed;
+}
+
+.booking-details {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    align-self: start;
+}
+
+.booking-calendar {
+    align-self: start;
+}
+
+.selected-date-info h3 {
+    color: var(--primary-dark);
+    margin-bottom: 16px;
+    font-size: 1.3rem;
+}
+
+.selected-date-info p {
+    color: var(--primary-gray);
+    margin-bottom: 30px;
+}
+
+.time-slots h4 {
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.time-slot {
+    padding: 16px 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    background: white;
+    color: var(--primary-dark);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.time-slot:hover {
+    border-color: var(--primary-yellow);
+    background: rgba(255, 215, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.time-slot.selected {
+    background: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+    color: #000;
+    font-weight: 600;
+}
+
+.time-slot.unavailable {
+    background: #f8f9fa;
+    color: #ccc;
+    cursor: not-allowed;
+    border-color: #f0f0f0;
+}
+
+.booking-form h4 {
+    color: var(--primary-dark);
+    margin-bottom: 24px;
+    font-size: 1.2rem;
+}
+
+.booking-form .form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.booking-form label {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    font-weight: 600;
+    color: var(--primary-gray);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    background: white;
+    padding: 0 4px;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.booking-form input:focus + label,
+.booking-form input:not(:placeholder-shown) + label,
+.booking-form textarea:focus + label,
+.booking-form textarea:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 12px;
+    font-size: 0.85rem;
+    color: var(--primary-yellow);
+    font-weight: 700;
+}
+
+.booking-form select:focus + label,
+.booking-form select.has-value + label {
+    top: -8px;
+    left: 12px;
+    font-size: 0.85rem;
+    color: var(--primary-yellow);
+    font-weight: 700;
+}
+
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-yellow);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.appointment-summary {
+    background: #f8f9fa;
+    padding: 24px;
+    border-radius: 16px;
+    margin: 30px 0;
+    border-left: 4px solid var(--primary-yellow);
+}
+
+.appointment-summary h5 {
+    color: var(--primary-dark);
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+}
+
+.appointment-summary p {
+    margin-bottom: 8px;
+    color: var(--primary-gray);
+}
+
+.appointment-summary strong {
+    color: var(--primary-dark);
+}
+
+.btn-large {
+    width: 100%;
+    padding: 18px 24px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+/* Responsive Design for Booking Calendar */
+@media (max-width: 1024px) {
+    .booking-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .booking-calendar,
+    .booking-details {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-section {
+        padding: 60px 0;
+    }
+    
+    .booking-calendar,
+    .booking-details {
+        padding: 24px;
+        border-radius: 16px;
+    }
+    
+    .calendar-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .calendar-nav {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .time-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .booking-calendar,
+    .booking-details {
+        padding: 20px;
+    }
+    
+    .calendar-day {
+        font-size: 0.9rem;
+    }
+    
+    .weekday {
+        font-size: 0.8rem;
+        padding: 8px 0;
     }
 }
