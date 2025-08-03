@@ -24,9 +24,9 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-exports.handler = async (event, context) => {
+exports.handler = async (incomingEvent, context) => {
     // Handle CORS preflight requests
-    if (event.httpMethod === 'OPTIONS') {
+    if (incomingEvent.httpMethod === 'OPTIONS') {
         return {
             statusCode: 200,
             headers: {
@@ -39,7 +39,7 @@ exports.handler = async (event, context) => {
     }
 
     // Only allow POST requests
-    if (event.httpMethod !== 'POST') {
+    if (incomingEvent.httpMethod !== 'POST') {
         return {
             statusCode: 405,
             headers: {
@@ -51,7 +51,7 @@ exports.handler = async (event, context) => {
     }
 
     try {
-        const { name, email, phone, meetingType, projectType, description, date, time } = JSON.parse(event.body);
+        const { name, email, phone, meetingType, projectType, description, date, time } = JSON.parse(incomingEvent.body);
 
         // Validate required fields
         if (!name || !email || !phone || !meetingType || !projectType || !date || !time) {
