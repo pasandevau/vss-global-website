@@ -22,6 +22,43 @@
             <rect fill="#FFFFFF" x="10" y="10" width="180" height="100"></rect>
             <rect fill="#333333" x="60" y="120" width="80" height="10"></rect>
             <rect fill="#222222" x="40" y="130" width="120" height="5" rx="2"></rect>
+            
+            <!-- Laptop Screen Content -->
+            <g transform="translate(20, 15)">
+                <!-- VSS Logo at top -->
+                <text font-family="Arial, sans-serif" font-weight="bold" font-size="14" fill="#1a1a1a">
+                    <tspan x="5" y="15">VSS</tspan>
+                </text>
+                <rect fill="#FFD700" x="40" y="7" width="20" height="10" rx="2"></rect>
+                <text font-family="Arial, sans-serif" font-size="6" fill="#1a1a1a">
+                    <tspan x="42" y="14">GLOBAL</tspan>
+                </text>
+                
+                <!-- Growth Chart -->
+                <rect fill="#f9f9f9" x="5" y="25" width="150" height="70" rx="2"></rect>
+                <text font-family="Arial, sans-serif" font-size="8" fill="#555555">
+                    <tspan x="10" y="35">Performance Growth</tspan>
+                </text>
+                
+                <!-- Chart Axes -->
+                <line x1="15" y1="85" x2="145" y2="85" stroke="#dddddd" stroke-width="1"></line>
+                <line x1="15" y1="40" x2="15" y2="85" stroke="#dddddd" stroke-width="1"></line>
+                
+                <!-- Chart Line -->
+                <path d="M15,75 C30,70 45,60 60,65 C75,55 90,45 105,40 C120,35 135,30 145,25" stroke="#FFD700" stroke-width="2" fill="none"></path>
+                
+                <!-- Data Points -->
+                <circle fill="#FFA500" cx="15" cy="75" r="3"></circle>
+                <circle fill="#FFA500" cx="45" cy="60" r="3"></circle>
+                <circle fill="#FFA500" cx="75" cy="55" r="3"></circle>
+                <circle fill="#FFA500" cx="105" cy="40" r="3"></circle>
+                <circle fill="#FFA500" cx="145" cy="25" r="3"></circle>
+                
+                <!-- Growth Indicator -->
+                <text font-family="Arial, sans-serif" font-weight="bold" font-size="12" fill="#1a1a1a">
+                    <tspan x="110" y="50">+187%</tspan>
+                </text>
+            </g>
         </g>
         
         <!-- Mobile Phone -->
@@ -29,6 +66,38 @@
             <rect fill="#333333" x="0" y="0" width="60" height="110" rx="8"></rect>
             <rect fill="#FFFFFF" x="5" y="10" width="50" height="90"></rect>
             <circle fill="#444444" cx="30" cy="105" r="3"></circle>
+            
+            <!-- Mobile Screen Content -->
+            <g transform="translate(10, 15)">
+                <!-- VSS Logo at top -->
+                <text font-family="Arial, sans-serif" font-weight="bold" font-size="8" fill="#1a1a1a">
+                    <tspan x="3" y="8">VSS</tspan>
+                </text>
+                <rect fill="#FFD700" x="22" y="3" width="10" height="6" rx="1"></rect>
+                <text font-family="Arial, sans-serif" font-size="4" fill="#1a1a1a">
+                    <tspan x="23" y="7.5">GLOBAL</tspan>
+                </text>
+                
+                <!-- Mobile App UI -->
+                <rect fill="#f9f9f9" x="3" y="15" width="35" height="65" rx="2"></rect>
+                
+                <!-- Stats Bars -->
+                <rect fill="#FFD700" x="8" y="25" width="25" height="5" rx="1"></rect>
+                <rect fill="#FFA500" x="8" y="35" width="20" height="5" rx="1"></rect>
+                <rect fill="#FFD700" x="8" y="45" width="28" height="5" rx="1"></rect>
+                <rect fill="#FFA500" x="8" y="55" width="15" height="5" rx="1"></rect>
+                <rect fill="#FFD700" x="8" y="65" width="30" height="5" rx="1"></rect>
+                
+                <!-- Labels -->
+                <text font-family="Arial, sans-serif" font-size="4" fill="#555555">
+                    <tspan x="8" y="22">Metrics</tspan>
+                </text>
+                
+                <!-- Growth Indicator -->
+                <text font-family="Arial, sans-serif" font-weight="bold" font-size="6" fill="#1a1a1a">
+                    <tspan x="20" y="75">+42%</tspan>
+                </text>
+            </g>
         </g>
         
         <!-- Tablet -->
@@ -36,6 +105,42 @@
             <rect fill="#333333" x="0" y="0" width="90" height="120" rx="6"></rect>
             <rect fill="#FFFFFF" x="5" y="10" width="80" height="100"></rect>
             <circle fill="#444444" cx="45" cy="115" r="3"></circle>
+            
+            <!-- Tablet Screen Content -->
+            <g transform="translate(10, 15)">
+                <!-- VSS Logo at top -->
+                <text font-family="Arial, sans-serif" font-weight="bold" font-size="10" fill="#1a1a1a">
+                    <tspan x="5" y="10">VSS</tspan>
+                </text>
+                <rect fill="#FFD700" x="30" y="4" width="15" height="8" rx="1"></rect>
+                <text font-family="Arial, sans-serif" font-size="5" fill="#1a1a1a">
+                    <tspan x="31" y="10">GLOBAL</tspan>
+                </text>
+                
+                <!-- Pie Chart -->
+                <circle fill="#f9f9f9" cx="35" cy="50" r="25"></circle>
+                
+                <!-- Pie Chart Segments -->
+                <path d="M35,50 L35,25 A25,25 0 0,1 56,62 z" fill="#FFD700"></path>
+                <path d="M35,50 L56,62 A25,25 0 0,1 20,70 z" fill="#FFA500"></path>
+                <path d="M35,50 L20,70 A25,25 0 0,1 35,25 z" fill="#f0f0f0"></path>
+                
+                <!-- Legend -->
+                <rect fill="#FFD700" x="15" y="80" width="8" height="4"></rect>
+                <text font-family="Arial, sans-serif" font-size="6" fill="#555555">
+                    <tspan x="25" y="84">Digital</tspan>
+                </text>
+                
+                <rect fill="#FFA500" x="15" y="88" width="8" height="4"></rect>
+                <text font-family="Arial, sans-serif" font-size="6" fill="#555555">
+                    <tspan x="25" y="92">Marketing</tspan>
+                </text>
+                
+                <rect fill="#f0f0f0" x="15" y="96" width="8" height="4"></rect>
+                <text font-family="Arial, sans-serif" font-size="6" fill="#555555">
+                    <tspan x="25" y="100">Design</tspan>
+                </text>
+            </g>
         </g>
         
         <!-- Decorative Elements -->

@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     const navItems = document.querySelectorAll('.nav-link');
+    
+    // Initialize hero section particles
+    initHeroParticles();
 
     // Navbar scroll effect
     let lastScroll = 0;
@@ -27,25 +30,33 @@ document.addEventListener('DOMContentLoaded', function() {
         navToggle.classList.toggle('active');
     });
 
-    // Smooth scrolling for navigation links
+    // Smooth scrolling for navigation links (only for internal anchor links)
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
-            e.preventDefault();
             const targetId = item.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
             
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+            // Only prevent default for internal anchor links (starting with #)
+            if (targetId && targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetSection = document.querySelector(targetId);
                 
-                // Update active nav item
-                navItems.forEach(navItem => navItem.classList.remove('active'));
-                item.classList.add('active');
-                
-                // Close mobile menu if open
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active nav item
+                    navItems.forEach(navItem => navItem.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    navToggle.classList.remove('active');
+                }
+            } else {
+                // For external links (like portfolio.html), just close mobile menu if open
                 navLinks.classList.remove('active');
                 navToggle.classList.remove('active');
             }
@@ -58,7 +69,12 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', (e) => {
             const buttonText = button.textContent.trim().toLowerCase();
             
-            // Handle different button types
+            // Skip buttons that have href attributes (let them work normally)
+            if (button.hasAttribute('href')) {
+                return; // Let the link work normally
+            }
+            
+            // Handle different button types for buttons without href
             if (buttonText.includes('start your project') || buttonText.includes('get started')) {
                 e.preventDefault();
                 const contactSection = document.querySelector('#contact');
@@ -96,23 +112,45 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const portfolioItems = document.querySelectorAll('.portfolio-item');
 
+    // Ensure all items are visible initially
+    portfolioItems.forEach(item => {
+        item.classList.remove('hidden');
+        item.style.opacity = '1';
+        item.style.transform = 'scale(1)';
+    });
+
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             // Remove active class from all buttons
-            filterBtns.forEach(filterBtn => filterBtn.classList.remove('active'));
+            filterBtns.forEach(button => button.classList.remove('active'));
             // Add active class to clicked button
             btn.classList.add('active');
             
-            const filterValue = btn.getAttribute('data-filter');
+            const filter = btn.getAttribute('data-filter');
             
+            // First, fade out all items
             portfolioItems.forEach(item => {
-                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                    item.style.display = 'block';
-                    item.style.animation = 'fadeInUp 0.6s ease-out';
-                } else {
-                    item.style.display = 'none';
-                }
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.8)';
             });
+            
+            // After a short delay, hide/show items and fade in visible ones
+            setTimeout(() => {
+                portfolioItems.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    
+                    if (filter === 'all' || category === filter) {
+                        item.classList.remove('hidden');
+                        // Fade in with slight delay for staggered effect
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            }, 200);
         });
     });
 
@@ -269,17 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Logo hover effect
-    const logo = document.querySelector('.logo');
-    if (logo) {
-        logo.addEventListener('mouseenter', () => {
-            logo.style.transform = 'scale(1.1) rotate(5deg)';
-        });
-        
-        logo.addEventListener('mouseleave', () => {
-            logo.style.transform = '';
-        });
-    }
+
 
     // Scroll to top functionality (if needed)
     let scrollToTopBtn = document.createElement('button');
@@ -368,3 +396,674 @@ const optimizedScroll = debounce(() => {
 }, 10);
 
 window.addEventListener('scroll', optimizedScroll);
+
+// Hero section animated particles
+function initHeroParticles() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    
+    // Create canvas element for particles
+    const canvas = document.createElement('canvas');
+    canvas.classList.add('hero-particles');
+    canvas.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+    `;
+    hero.appendChild(canvas);
+    
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = hero.offsetWidth;
+    let height = canvas.height = hero.offsetHeight;
+    
+    // Brand colors
+    const colors = [
+        'rgba(255, 215, 0, 0.7)',  // Gold/Yellow
+        'rgba(255, 165, 0, 0.6)',   // Orange
+        'rgba(255, 215, 0, 0.4)',    // Lighter Gold
+        'rgba(255, 165, 0, 0.3)'     // Lighter Orange
+    ];
+    
+    // Particle properties
+    const particles = [];
+    const particleCount = Math.min(Math.floor(width * height / 10000), 100);
+    const maxSize = 8;
+    
+    // Create particles
+    for (let i = 0; i < particleCount; i++) {
+        particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * maxSize + 1,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            speedX: Math.random() * 0.5 - 0.25,
+            speedY: Math.random() * 0.5 - 0.25,
+            opacity: Math.random() * 0.5 + 0.3
+        });
+    }
+    
+    // Animation loop
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        // Update and draw particles
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            
+            // Update position
+            p.x += p.speedX;
+            p.y += p.speedY;
+            
+            // Wrap around edges
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+            if (p.y < 0) p.y = height;
+            if (p.y > height) p.y = 0;
+            
+            // Draw particle
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.opacity;
+            ctx.fill();
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    // Handle resize
+    window.addEventListener('resize', debounce(() => {
+        width = canvas.width = hero.offsetWidth;
+        height = canvas.height = hero.offsetHeight;
+    }, 250));
+    
+    // Start animation
+    animate();
+}
+
+// Appointment Booking Calendar Functionality
+class BookingCalendar {
+    constructor() {
+        this.currentDate = new Date();
+        this.selectedDate = null;
+        this.selectedTime = null;
+        this.currentMonth = this.currentDate.getMonth();
+        this.currentYear = this.currentDate.getFullYear();
+        
+        this.monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        
+        this.init();
+    }
+    
+    init() {
+        if (!document.querySelector('.booking-calendar')) return;
+        
+        this.bindEvents();
+        this.renderCalendar();
+        this.handleMeetingTypeButtons();
+    }
+    
+    bindEvents() {
+        const prevBtn = document.getElementById('prevMonth');
+        const nextBtn = document.getElementById('nextMonth');
+        const timeSlots = document.querySelectorAll('.time-slot');
+        const appointmentForm = document.getElementById('appointmentForm');
+        const meetingTypeSelect = document.getElementById('meetingType');
+        
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => this.previousMonth());
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => this.nextMonth());
+        }
+        
+        timeSlots.forEach(slot => {
+            slot.addEventListener('click', (e) => this.selectTime(e));
+        });
+        
+        if (appointmentForm) {
+            appointmentForm.addEventListener('submit', (e) => this.handleFormSubmit(e));
+        }
+        
+        if (meetingTypeSelect) {
+            meetingTypeSelect.addEventListener('change', (e) => {
+                this.updateSummaryType(e.target.value);
+                this.handleSelectChange(e.target);
+            });
+        }
+        
+        // Handle project type select
+        const projectTypeSelect = document.getElementById('projectType');
+        if (projectTypeSelect) {
+            projectTypeSelect.addEventListener('change', (e) => this.handleSelectChange(e.target));
+        }
+    }
+    
+    renderCalendar() {
+        const monthElement = document.getElementById('currentMonth');
+        const calendarDays = document.getElementById('calendarDays');
+        
+        if (!monthElement || !calendarDays) return;
+        
+        monthElement.textContent = `${this.monthNames[this.currentMonth]} ${this.currentYear}`;
+        
+        const firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
+        const daysInMonth = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+        const today = new Date();
+        
+        let daysHTML = '';
+        
+        // Add empty cells for days before the first day of the month
+        for (let i = 0; i < firstDay; i++) {
+            daysHTML += '<button class="calendar-day other-month"></button>';
+        }
+        
+        // Add days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(this.currentYear, this.currentMonth, day);
+            const isToday = date.toDateString() === today.toDateString();
+            const isPast = date < today.setHours(0, 0, 0, 0);
+            
+            let classes = 'calendar-day';
+            
+            if (isPast) {
+                classes += ' unavailable';
+            } else {
+                classes += ' available';
+            }
+            
+            if (this.selectedDate && 
+                this.selectedDate.getDate() === day && 
+                this.selectedDate.getMonth() === this.currentMonth && 
+                this.selectedDate.getFullYear() === this.currentYear) {
+                classes += ' selected';
+            }
+            
+            daysHTML += `<button class="${classes}" data-date="${this.currentYear}-${(this.currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}">${day}</button>`;
+        }
+        
+        calendarDays.innerHTML = daysHTML;
+        
+        // Add click events to available days
+        calendarDays.querySelectorAll('.calendar-day.available').forEach(day => {
+            day.addEventListener('click', (e) => this.selectDate(e));
+        });
+    }
+    
+    selectDate(e) {
+        const dateStr = e.target.getAttribute('data-date');
+        if (!dateStr) return;
+        
+        this.selectedDate = new Date(dateStr + 'T00:00:00');
+        
+        // Remove previous selection
+        document.querySelectorAll('.calendar-day.selected').forEach(day => {
+            day.classList.remove('selected');
+        });
+        
+        // Add selection to clicked day
+        e.target.classList.add('selected');
+        
+        // Update selected date text
+        const selectedDateText = document.getElementById('selectedDateText');
+        if (selectedDateText) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            selectedDateText.textContent = this.selectedDate.toLocaleDateString('en-AU', options);
+        }
+        
+        // Show time slots
+        const timeSlots = document.getElementById('timeSlots');
+        if (timeSlots) {
+            timeSlots.style.display = 'block';
+        }
+        
+        // Reset time selection
+        this.selectedTime = null;
+        document.querySelectorAll('.time-slot.selected').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+        
+        // Hide booking form
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            bookingForm.style.display = 'none';
+        }
+        
+        // Update summary date
+        this.updateSummaryDate();
+    }
+    
+    selectTime(e) {
+        if (!this.selectedDate) return;
+        
+        this.selectedTime = e.target.getAttribute('data-time');
+        
+        // Remove previous selection
+        document.querySelectorAll('.time-slot.selected').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+        
+        // Add selection to clicked time
+        e.target.classList.add('selected');
+        
+        // Show booking form
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            bookingForm.style.display = 'block';
+        }
+        
+        // Update summary time
+        this.updateSummaryTime();
+    }
+    
+    previousMonth() {
+        this.currentMonth--;
+        if (this.currentMonth < 0) {
+            this.currentMonth = 11;
+            this.currentYear--;
+        }
+        this.renderCalendar();
+    }
+    
+    nextMonth() {
+        this.currentMonth++;
+        if (this.currentMonth > 11) {
+            this.currentMonth = 0;
+            this.currentYear++;
+        }
+        this.renderCalendar();
+    }
+    
+    updateSummaryDate() {
+        const summaryDate = document.getElementById('summaryDate');
+        if (summaryDate && this.selectedDate) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            summaryDate.textContent = this.selectedDate.toLocaleDateString('en-AU', options);
+        }
+    }
+    
+    updateSummaryTime() {
+        const summaryTime = document.getElementById('summaryTime');
+        if (summaryTime && this.selectedTime) {
+            const time24 = this.selectedTime;
+            const [hours, minutes] = time24.split(':');
+            const time12 = new Date(2000, 0, 1, parseInt(hours), parseInt(minutes)).toLocaleTimeString('en-AU', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+            summaryTime.textContent = `${time12} (ACST)`;
+        }
+    }
+    
+    updateSummaryType(type) {
+        const summaryType = document.getElementById('summaryType');
+        if (summaryType) {
+            const typeText = type === 'in-person' ? 'In-Person Meeting' : 
+                           type === 'video-call' ? 'Video Call' : '';
+            summaryType.textContent = typeText;
+        }
+    }
+    
+    handleSelectChange(selectElement) {
+        if (selectElement.value !== '') {
+            selectElement.classList.add('has-value');
+        } else {
+            selectElement.classList.remove('has-value');
+        }
+    }
+    
+    handleMeetingTypeButtons() {
+        const meetingTypeButtons = document.querySelectorAll('[data-meeting-type]');
+        
+        meetingTypeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const meetingType = button.getAttribute('data-meeting-type');
+                
+                // Scroll to booking calendar
+                const bookingSection = document.getElementById('booking-calendar');
+                if (bookingSection) {
+                    bookingSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Pre-select meeting type after a short delay to allow scrolling
+                setTimeout(() => {
+                    this.preselectMeetingType(meetingType);
+                }, 800);
+            });
+        });
+    }
+    
+    preselectMeetingType(meetingType) {
+        const meetingTypeSelect = document.getElementById('meetingType');
+        if (meetingTypeSelect) {
+            meetingTypeSelect.value = meetingType;
+            meetingTypeSelect.classList.add('has-value');
+            this.updateSummaryType(meetingType);
+            
+            // Add a subtle highlight effect to show it was pre-selected
+            meetingTypeSelect.style.borderColor = 'var(--primary-yellow)';
+            meetingTypeSelect.style.boxShadow = '0 0 0 3px rgba(255, 215, 0, 0.2)';
+            
+            setTimeout(() => {
+                meetingTypeSelect.style.borderColor = '';
+                meetingTypeSelect.style.boxShadow = '';
+            }, 2000);
+        }
+    }
+    
+    async handleFormSubmit(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const appointmentData = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            meetingType: formData.get('meetingType'),
+            projectType: formData.get('projectType'),
+            description: formData.get('description'),
+            date: this.selectedDate.toISOString().split('T')[0],
+            time: this.selectedTime
+        };
+        
+        try {
+            // Show loading state
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Booking...';
+            submitBtn.disabled = true;
+            
+            // Send appointment data to backend API
+            const apiUrl = window.location.hostname === 'localhost' ? 
+                'http://localhost:3001/api/book-appointment' : 
+                '/.netlify/functions/book-appointment';
+            
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(appointmentData)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                // Show success modal
+                this.showSuccessMessage(
+                    `🎉 Appointment Confirmed!`,
+                    `Thank you ${appointmentData.name}! Your consultation has been successfully booked.\n\n📅 Date: ${result.appointmentDetails.date}\n⏰ Time: ${result.appointmentDetails.time}\n📍 Type: ${result.appointmentDetails.meetingType}${result.meetingLink ? `\n\n🔗 Video Call Link: ${result.meetingLink}` : ''}\n\n📧 You'll receive a confirmation email with all details and calendar invite shortly.\n\nWe look forward to discussing your project!`
+                );
+                this.resetBooking();
+            } else {
+                throw new Error(result.message || 'Failed to book appointment');
+            }
+            
+            // Reset button state
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+        } catch (error) {
+            console.error('Error booking appointment:', error);
+            
+            // Show error modal
+            this.showErrorMessage(
+                'Booking Failed',
+                `Sorry, we couldn't book your appointment at this time. Please try again or contact us directly at admin@vssglobal.biz.\n\nError: ${error.message}`
+            );
+            
+            // Reset button state
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.textContent = 'Book Appointment';
+                submitBtn.disabled = false;
+            }
+        }
+    }
+    
+    resetBooking() {
+        this.selectedDate = null;
+        this.selectedTime = null;
+        
+        // Reset UI
+        document.querySelectorAll('.calendar-day.selected').forEach(day => {
+            day.classList.remove('selected');
+        });
+        
+        document.querySelectorAll('.time-slot.selected').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+        
+        const selectedDateText = document.getElementById('selectedDateText');
+        if (selectedDateText) {
+            selectedDateText.textContent = 'Please choose a date from the calendar';
+        }
+        
+        const timeSlots = document.getElementById('timeSlots');
+        if (timeSlots) {
+            timeSlots.style.display = 'none';
+        }
+        
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            bookingForm.style.display = 'none';
+            const form = bookingForm.querySelector('form');
+            if (form) form.reset();
+        }
+    }
+    
+    showSuccessMessage(title, message) {
+        this.showModal(title, message, 'success');
+    }
+    
+    showErrorMessage(title, message) {
+        this.showModal(title, message, 'error');
+    }
+    
+    showModal(title, message, type = 'success') {
+        // Remove existing modal if any
+        const existingModal = document.querySelector('.booking-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Create modal HTML
+        const modal = document.createElement('div');
+        modal.className = 'booking-modal';
+        modal.innerHTML = `
+            <div class="booking-modal-overlay">
+                <div class="booking-modal-content ${type}">
+                    <div class="booking-modal-header">
+                        <h3>${title}</h3>
+                        <button class="booking-modal-close">&times;</button>
+                    </div>
+                    <div class="booking-modal-body">
+                        <p>${message.replace(/\n/g, '<br>')}</p>
+                    </div>
+                    <div class="booking-modal-footer">
+                        <button class="btn booking-modal-ok">OK</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add modal styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .booking-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .booking-modal-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: fadeIn 0.3s ease;
+            }
+            
+            .booking-modal-content {
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+                max-width: 500px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                animation: slideIn 0.3s ease;
+            }
+            
+            .booking-modal-content.success {
+                border-top: 4px solid #28a745;
+            }
+            
+            .booking-modal-content.error {
+                border-top: 4px solid #dc3545;
+            }
+            
+            .booking-modal-header {
+                padding: 20px 20px 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .booking-modal-header h3 {
+                margin: 0;
+                color: #333;
+                font-size: 1.5rem;
+            }
+            
+            .booking-modal-close {
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #999;
+                padding: 0;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .booking-modal-close:hover {
+                color: #333;
+            }
+            
+            .booking-modal-body {
+                padding: 20px;
+            }
+            
+            .booking-modal-body p {
+                margin: 0;
+                line-height: 1.6;
+                color: #555;
+                white-space: pre-line;
+            }
+            
+            .booking-modal-footer {
+                padding: 0 20px 20px 20px;
+                text-align: right;
+            }
+            
+            .booking-modal-ok {
+                background: var(--primary-yellow, #FFD700);
+                color: #000;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 6px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .booking-modal-ok:hover {
+                background: #E6C200;
+                transform: translateY(-2px);
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            @keyframes slideIn {
+                from { 
+                    opacity: 0;
+                    transform: translateY(-50px) scale(0.9);
+                }
+                to { 
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+        `;
+        
+        // Add to document
+        document.head.appendChild(style);
+        document.body.appendChild(modal);
+        
+        // Add event listeners
+        const closeBtn = modal.querySelector('.booking-modal-close');
+        const okBtn = modal.querySelector('.booking-modal-ok');
+        const overlay = modal.querySelector('.booking-modal-overlay');
+        
+        const closeModal = () => {
+            modal.remove();
+            style.remove();
+        };
+        
+        closeBtn.addEventListener('click', closeModal);
+        okBtn.addEventListener('click', closeModal);
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeModal();
+            }
+        });
+        
+        // Close on Escape key
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        
+        document.addEventListener('keydown', handleEscape);
+    }
+}
+
+// Initialize booking calendar when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    new BookingCalendar();
+});

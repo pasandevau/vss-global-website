@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - VSS Global</title>
+    <meta name="description" content="Ready to transform your digital presence? Contact VSS Global for a free consultation. Let's discuss your web, mobile, or software development needs.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/images/VSS Extended black Logo.png" alt="VSS Global" class="logo">
+                    <span class="logo-text">VSS Global</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link">Services</a>
+                    <div class="dropdown-content">
+                        <a href="web-development.html">Web Development</a>
+                        <a href="software-development.html">Software Development</a>
+                        <a href="mobile-development.html">Mobile Development</a>
+                        <a href="digital-marketing.html">Digital Marketing</a>
+                        <a href="ui-ux-design.html">UI/UX Design</a>
+                        <a href="analytics-optimization.html">Analytics & Optimization</a>
+                    </div>
+                </div>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="process.html" class="nav-link">Process</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link nav-cta-btn active">Let's Talk</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Contact Hero Section -->
+    <section class="service-hero">
+        <div class="container">
+            <div class="service-hero-content">
+                <div class="service-icon-large">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </div>
+                <h1>Got a Digital Project Idea?<br>Let's Talk About It.</h1>
+                <p class="service-hero-description">Ready to transform your business with cutting-edge digital solutions? We're here to help you bring your vision to life. Schedule a free consultation and discover how VSS Global can elevate your digital presence.</p>
+                <div class="service-hero-buttons">
+                    <a href="#consultation" class="btn btn-primary">Book Free Consultation</a>
+                    <a href="#contact-info" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Booking Section -->
+    <section id="consultation" class="service-features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Book a FREE Consultation Session</h2>
+                <p>Choose the consultation format that works best for you</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Meet Us In Person</h3>
+                    <p>Schedule a 45-minute face-to-face discovery session at our office or we can meet up at a convenient place, putting customer convenience first. Perfect for detailed project discussions and building a personal connection.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#booking-calendar" class="btn btn-secondary" data-meeting-type="in-person">Book In-Person Meeting</a>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                    </div>
+                    <h3>Virtual Meeting</h3>
+                    <p>Book a 45-minute discovery session via video call to discuss your needs. Convenient for clients anywhere in Australia or internationally.</p>
+                    <div class="card-button-wrapper">
+                        <a href="#booking-calendar" class="btn btn-secondary" data-meeting-type="video-call">Schedule Video Call</a>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4"/>
+                            <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+                            <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+                            <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3"/>
+                            <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3"/>
+                        </svg>
+                    </div>
+                    <h3>🔒 Your Ideas Are Safe With Us</h3>
+                    <p>We've got you covered. You'll receive an NDA (Non-Disclosure Agreement) in your meeting confirmation email, ensuring all your information stays confidential from the moment we connect.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Booking Section -->
+    <section id="booking-calendar" class="booking-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Book Your Free Consultation</h2>
+                <p>Choose a convenient time for your 45-minute discovery session. Available slots are shown in Adelaide time (ACST).</p>
+            </div>
+
+            <div class="booking-container">
+                <div class="booking-calendar">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" id="prevMonth">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15,18 9,12 15,6"></polyline>
+                            </svg>
+                        </button>
+                        <h3 id="currentMonth">January 2024</h3>
+                        <button class="calendar-nav" id="nextMonth">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9,18 15,12 9,6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="calendar-weekdays">
+                        <div class="weekday">Sun</div>
+                        <div class="weekday">Mon</div>
+                        <div class="weekday">Tue</div>
+                        <div class="weekday">Wed</div>
+                        <div class="weekday">Thu</div>
+                        <div class="weekday">Fri</div>
+                        <div class="weekday">Sat</div>
+                    </div>
+
+                    <div class="calendar-days" id="calendarDays">
+                        <!-- Calendar days will be generated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="booking-details">
+                    <div class="selected-date-info">
+                        <h3>Select a Date</h3>
+                        <p id="selectedDateText">Please choose a date from the calendar</p>
+                    </div>
+
+                    <div class="time-slots" id="timeSlots" style="display: none;">
+                        <h4>Available Times</h4>
+                        <div class="time-grid">
+                            <button class="time-slot" data-time="09:00">9:00 AM</button>
+                            <button class="time-slot" data-time="10:00">10:00 AM</button>
+                            <button class="time-slot" data-time="11:00">11:00 AM</button>
+                            <button class="time-slot" data-time="13:00">1:00 PM</button>
+                            <button class="time-slot" data-time="14:00">2:00 PM</button>
+                            <button class="time-slot" data-time="15:00">3:00 PM</button>
+                            <button class="time-slot" data-time="16:00">4:00 PM</button>
+                        </div>
+                    </div>
+
+                    <div class="booking-form" id="bookingForm" style="display: none;">
+                        <h4>Confirm Your Appointment</h4>
+                        <form id="appointmentForm">
+                            <div class="form-group">
+                                <input type="text" id="bookingName" name="name" placeholder=" " required>
+                                <label for="bookingName">Full Name *</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="bookingEmail" name="email" placeholder=" " required>
+                                <label for="bookingEmail">Email Address *</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="bookingPhone" name="phone" placeholder=" " required>
+                                <label for="bookingPhone">Phone Number *</label>
+                            </div>
+                            <div class="form-group">
+                                <select id="meetingType" name="meetingType" required>
+                                    <option value="">Select meeting type</option>
+                                    <option value="in-person">In-Person Meeting</option>
+                                    <option value="video-call">Video Call</option>
+                                </select>
+                                <label for="meetingType">Meeting Type *</label>
+                            </div>
+                            <div class="form-group">
+                                <select id="projectType" name="projectType">
+                                    <option value="">Select project type</option>
+                                    <option value="web-development">Web Development</option>
+                                    <option value="software-development">Software Development</option>
+                                    <option value="mobile-development">Mobile Development</option>
+                                    <option value="digital-marketing">Digital Marketing</option>
+                                    <option value="ui-ux-design">UI/UX Design</option>
+                                    <option value="analytics-optimization">Analytics & Optimization</option>
+                                </select>
+                                <label for="projectType">Project Type</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="projectDescription" name="description" rows="3" placeholder=" "></textarea>
+                                <label for="projectDescription">Brief Project Description</label>
+                            </div>
+                            <div class="appointment-summary">
+                                <h5>Appointment Summary</h5>
+                                <p><strong>Date:</strong> <span id="summaryDate"></span></p>
+                                <p><strong>Time:</strong> <span id="summaryTime"></span></p>
+                                <p><strong>Duration:</strong> 45 minutes</p>
+                                <p><strong>Type:</strong> <span id="summaryType"></span></p>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-large">Confirm Appointment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="service-process">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Are the Next Steps?</h2>
+                <p>We know that starting a new project can feel daunting, which is why we've streamlined our process to make it simple and stress-free.</p>
+            </div>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Initial Consultation</h3>
+                        <p>Your first call or meeting with us is all about understanding your vision. This is your chance to share your goals, challenges, and ideas, while we show you how VSS Global can add value to your project.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Evaluation & Planning</h3>
+                        <p>If your project involves sensitive information, we can sign a Non-Disclosure Agreement (NDA) to ensure your intellectual property is protected. We'll have an open conversation about time, budget, and scope to set clear expectations.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Define the Approach</h3>
+                        <p>Every project is unique, and so is our approach. Depending on where you are in your business journey, we'll propose the best way forward—finding the perfect balance between time, budget, and scope.</p>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Formalizing the Partnership</h3>
+                        <p>Once we've aligned on the direction, we'll prepare a detailed proposal that captures everything we've discussed. This proposal formalizes the next steps and ensures our partnership is built on shared understanding.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section id="contact-info" class="service-features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Ready to start your project? Reach out to us through any of these channels</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <h3>Adelaide Head Office</h3>
+                    <p><strong>Address:</strong><br>
+                    1/437 Germantown Road<br>
+                    Two Wells, SA 5501<br>
+                    Australia</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <h3>Email</h3>
+                    <p><strong>General Inquiries:</strong><br>
+                    <a href="mailto:info@vssglobal.biz">info@vssglobal.biz</a></p>
+                    <p><strong>Project Inquiries:</strong><br>
+                    <a href="mailto:projects@vssglobal.biz">projects@vssglobal.biz</a></p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <h3>Phone</h3>
+                    <p><a href="tel:+61421530032">+61 421 530 032</a></p>
+                    <p><em>Available 9 AM - 6 PM ACST</em></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact-form" class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Ready to Start Your Project?</h2>
+                    <p>Fill out the form below and we'll get back to you within 24 hours. Let's discuss how we can help transform your digital presence.</p>
+                    
+                    <div class="contact-features">
+                        <div class="contact-feature">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <span>Free consultation & project estimate</span>
+                        </div>
+                        <div class="contact-feature">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <span>24-hour response guarantee</span>
+                        </div>
+                        <div class="contact-feature">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20,6 9,17 4,12"/>
+                                </svg>
+                            </div>
+                            <span>NDA protection for your ideas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                            <label for="firstName">First Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                            <label for="lastName">Last Name</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            <label for="email">Email Address</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+                            <label for="phone">Phone Number</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="company" name="company" placeholder="Company Name">
+                        <label for="company">Company Name (Optional)</label>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="service" name="service" required>
+                            <option value="">Select Service Interest</option>
+                            <option value="web-development">Web Design & Development</option>
+                            <option value="software-development">Custom Software Development</option>
+                            <option value="mobile-development">Mobile App Development</option>
+                            <option value="digital-marketing">Digital Marketing</option>
+                            <option value="ui-ux-design">UI/UX Design</option>
+                            <option value="analytics-optimization">Analytics & Optimization</option>
+                            <option value="consultation">General Consultation</option>
+                        </select>
+                        <label for="service">Service Interest</label>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="budget" name="budget">
+                            <option value="">Select Budget Range</option>
+                            <option value="under-10k">Under $10,000</option>
+                            <option value="10k-25k">$10,000 - $25,000</option>
+                            <option value="25k-50k">$25,000 - $50,000</option>
+                            <option value="50k-100k">$50,000 - $100,000</option>
+                            <option value="over-100k">Over $100,000</option>
+                            <option value="not-sure">Not sure yet</option>
+                        </select>
+                        <label for="budget">Project Budget (Optional)</label>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="timeline" name="timeline">
+                            <option value="">Select Timeline</option>
+                            <option value="asap">ASAP</option>
+                            <option value="1-3-months">1-3 months</option>
+                            <option value="3-6-months">3-6 months</option>
+                            <option value="6-12-months">6-12 months</option>
+                            <option value="flexible">Flexible</option>
+                        </select>
+                        <label for="timeline">Project Timeline (Optional)</label>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Tell us about your project, goals, and any specific requirements..." required rows="5"></textarea>
+                        <label for="message">Project Details</label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">I'd like to receive updates about VSS Global services and digital marketing insights</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send Message & Book Consultation</button>
+                    
+                    <p class="form-note">By submitting this form, you agree to our privacy policy. We'll never share your information with third parties.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/images/VSS Extended White Logo.png" alt="VSS Global">
+                        <span>VSS Global</span>
+                    </div>
+                    <p>Transforming businesses through exceptional digital experiences and innovative solutions.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">Mobile Development</a></li>
+                        <li><a href="#">Digital Marketing</a></li>
+                        <li><a href="#">Consulting</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Process</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 VSS Global. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
