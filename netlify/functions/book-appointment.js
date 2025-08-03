@@ -346,6 +346,13 @@ Preparation Checklist:
 
     } catch (error) {
         console.error('Error booking appointment:', error);
+        console.error('Error stack:', error.stack);
+        console.error('Error details:', {
+            message: error.message,
+            name: error.name,
+            code: error.code
+        });
+        
         return {
             statusCode: 500,
             headers: {
@@ -355,7 +362,13 @@ Preparation Checklist:
             body: JSON.stringify({
                 success: false,
                 message: 'Failed to book appointment. Please try again or contact us directly.',
-                error: process.env.NODE_ENV === 'development' ? error.message : undefined
+                error: error.message,
+                errorType: error.name,
+                debug: {
+                    hasGoogleClientId: !!process.env.GOOGLE_CLIENT_ID,
+                    hasEmailUser: !!process.env.EMAIL_USER,
+                    hasRefreshToken: !!process.env.GOOGLE_REFRESH_TOKEN
+                }
             })
         };
     }
