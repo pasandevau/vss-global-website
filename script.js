@@ -790,7 +790,7 @@ class BookingCalendar {
             // Send appointment data to backend API
             const apiUrl = window.location.hostname === 'localhost' ? 
                 'http://localhost:3001/api/book-appointment' : 
-                '/.netlify/functions/book-appointment';
+                '/.netlify/functions/test-booking';
             
             const response = await fetch(apiUrl, {
                 method: 'POST',
