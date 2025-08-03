@@ -765,7 +765,7 @@ class BookingCalendar {
         }
     }
     
-    handleFormSubmit(e) {
+    async handleFormSubmit(e) {
         e.preventDefault();
         
         const formData = new FormData(e.target);
@@ -780,14 +780,59 @@ class BookingCalendar {
             time: this.selectedTime
         };
         
-        // Here you would typically send the data to your backend
-        console.log('Appointment booked:', appointmentData);
-        
-        // Show success message
-        alert(`Thank you ${appointmentData.name}! Your appointment has been booked for ${this.selectedDate.toLocaleDateString('en-AU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} at ${document.getElementById('summaryTime').textContent}. We'll send you a confirmation email shortly.`);
-        
-        // Reset form
-        this.resetBooking();
+        try {
+            // Show loading state
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Booking...';
+            submitBtn.disabled = true;
+            
+            // Send appointment data to backend API
+            const apiUrl = window.location.hostname === 'localhost' ? 
+                'http://localhost:3001/api/book-appointment' : 
+                '/.netlify/functions/book-appointment';
+            
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(appointmentData)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                // Show success modal
+                this.showSuccessMessage(
+                    `🎉 Appointment Confirmed!`,
+                    `Thank you ${appointmentData.name}! Your consultation has been successfully booked.\n\n📅 Date: ${result.appointmentDetails.date}\n⏰ Time: ${result.appointmentDetails.time}\n📍 Type: ${result.appointmentDetails.meetingType}${result.meetingLink ? `\n\n🔗 Video Call Link: ${result.meetingLink}` : ''}\n\n📧 You'll receive a confirmation email with all details and calendar invite shortly.\n\nWe look forward to discussing your project!`
+                );
+                this.resetBooking();
+            } else {
+                throw new Error(result.message || 'Failed to book appointment');
+            }
+            
+            // Reset button state
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+        } catch (error) {
+            console.error('Error booking appointment:', error);
+            
+            // Show error modal
+            this.showErrorMessage(
+                'Booking Failed',
+                `Sorry, we couldn't book your appointment at this time. Please try again or contact us directly at admin@vssglobal.biz.\n\nError: ${error.message}`
+            );
+            
+            // Reset button state
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.textContent = 'Book Appointment';
+                submitBtn.disabled = false;
+            }
+        }
     }
     
     resetBooking() {
@@ -816,8 +861,205 @@ class BookingCalendar {
         const bookingForm = document.getElementById('bookingForm');
         if (bookingForm) {
             bookingForm.style.display = 'none';
-            bookingForm.reset();
+            const form = bookingForm.querySelector('form');
+            if (form) form.reset();
         }
+    }
+    
+    showSuccessMessage(title, message) {
+        this.showModal(title, message, 'success');
+    }
+    
+    showErrorMessage(title, message) {
+        this.showModal(title, message, 'error');
+    }
+    
+    showModal(title, message, type = 'success') {
+        // Remove existing modal if any
+        const existingModal = document.querySelector('.booking-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Create modal HTML
+        const modal = document.createElement('div');
+        modal.className = 'booking-modal';
+        modal.innerHTML = `
+            <div class="booking-modal-overlay">
+                <div class="booking-modal-content ${type}">
+                    <div class="booking-modal-header">
+                        <h3>${title}</h3>
+                        <button class="booking-modal-close">&times;</button>
+                    </div>
+                    <div class="booking-modal-body">
+                        <p>${message.replace(/\n/g, '<br>')}</p>
+                    </div>
+                    <div class="booking-modal-footer">
+                        <button class="btn booking-modal-ok">OK</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add modal styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .booking-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .booking-modal-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: fadeIn 0.3s ease;
+            }
+            
+            .booking-modal-content {
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+                max-width: 500px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                animation: slideIn 0.3s ease;
+            }
+            
+            .booking-modal-content.success {
+                border-top: 4px solid #28a745;
+            }
+            
+            .booking-modal-content.error {
+                border-top: 4px solid #dc3545;
+            }
+            
+            .booking-modal-header {
+                padding: 20px 20px 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .booking-modal-header h3 {
+                margin: 0;
+                color: #333;
+                font-size: 1.5rem;
+            }
+            
+            .booking-modal-close {
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #999;
+                padding: 0;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .booking-modal-close:hover {
+                color: #333;
+            }
+            
+            .booking-modal-body {
+                padding: 20px;
+            }
+            
+            .booking-modal-body p {
+                margin: 0;
+                line-height: 1.6;
+                color: #555;
+                white-space: pre-line;
+            }
+            
+            .booking-modal-footer {
+                padding: 0 20px 20px 20px;
+                text-align: right;
+            }
+            
+            .booking-modal-ok {
+                background: var(--primary-yellow, #FFD700);
+                color: #000;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 6px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .booking-modal-ok:hover {
+                background: #E6C200;
+                transform: translateY(-2px);
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            @keyframes slideIn {
+                from { 
+                    opacity: 0;
+                    transform: translateY(-50px) scale(0.9);
+                }
+                to { 
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+        `;
+        
+        // Add to document
+        document.head.appendChild(style);
+        document.body.appendChild(modal);
+        
+        // Add event listeners
+        const closeBtn = modal.querySelector('.booking-modal-close');
+        const okBtn = modal.querySelector('.booking-modal-ok');
+        const overlay = modal.querySelector('.booking-modal-overlay');
+        
+        const closeModal = () => {
+            modal.remove();
+            style.remove();
+        };
+        
+        closeBtn.addEventListener('click', closeModal);
+        okBtn.addEventListener('click', closeModal);
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeModal();
+            }
+        });
+        
+        // Close on Escape key
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        
+        document.addEventListener('keydown', handleEscape);
     }
 }
 
