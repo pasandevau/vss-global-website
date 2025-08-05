@@ -660,9 +660,6 @@ class BookingCalendar {
             bookedByDate[slot.date].push(slot);
         });
         
-        console.log('Updating calendar availability with booked slots:', bookedByDate);
-        console.log('Total available time slots:', this.availableTimeSlots.length);
-        
         // Clear previous booking states
         calendarDays.querySelectorAll('.calendar-day').forEach(dayBtn => {
             dayBtn.classList.remove('fully-booked', 'partially-booked');
@@ -674,29 +671,55 @@ class BookingCalendar {
         // Update calendar days to show booking status
         calendarDays.querySelectorAll('.calendar-day.available').forEach(dayBtn => {
             const dateStr = dayBtn.getAttribute('data-date');
-            console.log(`Checking day ${dateStr} for bookings`);
             
             if (dateStr && bookedByDate[dateStr]) {
                 const bookedSlotsForDay = bookedByDate[dateStr];
                 const totalAvailableSlots = this.availableTimeSlots.length;
                 
-                console.log(`Day ${dateStr} has ${bookedSlotsForDay.length} booked slots out of ${totalAvailableSlots} total slots`);
-                
                 // If all slots are booked, gray out the entire day
                 if (bookedSlotsForDay.length >= totalAvailableSlots) {
-                    console.log(`Day ${dateStr} is fully booked - graying out`);
                     dayBtn.classList.remove('available');
                     dayBtn.classList.add('fully-booked');
                     dayBtn.disabled = true;
                 } else {
-                    console.log(`Day ${dateStr} is partially booked - adding indicator`);
                     // Some slots are booked, add partial booking indicator
                     dayBtn.classList.add('partially-booked');
                 }
-            } else {
-                console.log(`Day ${dateStr} has no bookings`);
             }
         });
+    }
+    
+    // Fetch calendar availability from backend
+    async fetchCalendarAvailability() {
+        try {
+            // Create dates in Adelaide timezone context
+            const startDate = new Date(this.currentYear, this.currentMonth, 1);
+            const endDate = new Date(this.currentYear, this.currentMonth + 1, 0);
+            
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const apiEndpoint = isLocal 
+                ? `http://localhost:3001/api/calendar-availability?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
+                : `/.netlify/functions/calendar-availability?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`;
+            
+            const response = await fetch(apiEndpoint);
+            
+            if (response.ok) {
+                const data = await response.json();
+                this.bookedSlots = data.bookedSlots || [];
+                
+                // Update calendar display
+                this.updateCalendarAvailability();
+                
+                // Update time slots if a date is selected
+                if (this.selectedDate) {
+                    this.updateTimeSlots();
+                }
+            } else {
+                console.warn('Failed to fetch calendar availability:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.warn('Error fetching calendar availability:', error);
+        }
     }
     
     // Update time slots based on selected date
@@ -874,12 +897,13 @@ class BookingCalendar {
     updateTimeSlots() {
         if (!this.selectedDate) return;
         
-        const selectedDateStr = this.selectedDate.toISOString().split('T')[0];
-        console.log('Updating time slots for date:', selectedDateStr);
+        // Format selected date in Adelaide timezone to match backend format
+        const selectedDateStr = this.selectedDate.toLocaleDateString('en-CA', { 
+            timeZone: 'Australia/Adelaide'
+        }); // Returns YYYY-MM-DD format in Adelaide timezone
         
         // Find booked slots for the selected date
         const bookedSlotsForDate = this.bookedSlots.filter(slot => slot.date === selectedDateStr);
-        console.log('Booked slots for selected date:', bookedSlotsForDate);
         
         // Get all time slot buttons
         const timeSlotButtons = document.querySelectorAll('.time-slot');
@@ -891,21 +915,14 @@ class BookingCalendar {
             const isBooked = bookedSlotsForDate.some(slot => {
                 // Convert slot time to 24-hour format for comparison
                 const slotTime = this.convertTo24Hour(slot.time);
-                console.log(`Comparing slot time '${slot.time}' (converted: '${slotTime}') with time value '${timeValue}'`);
                 return slotTime === timeValue;
             });
             
-            console.log(`Time slot ${timeValue}: isBooked = ${isBooked}`);
-            
             if (isBooked) {
-                console.log(`Marking time slot ${timeValue} as booked`);
                 button.classList.add('booked');
                 button.disabled = true;
                 button.innerHTML = button.innerHTML.replace(' (Booked)', '') + ' (Booked)';
-                console.log(`Time slot ${timeValue} classes after booking:`, button.className);
-                console.log(`Time slot ${timeValue} disabled:`, button.disabled);
             } else {
-                console.log(`Time slot ${timeValue} is available`);
                 button.classList.remove('booked');
                 button.disabled = false;
                 button.innerHTML = button.innerHTML.replace(' (Booked)', '');
@@ -1128,9 +1145,9 @@ class BookingCalendar {
             meetingType: formData.get('meetingType'),
             projectType: formData.get('projectType'),
             description: formData.get('description'),
-            date: this.selectedDate.getFullYear() + '-' + 
-                  String(this.selectedDate.getMonth() + 1).padStart(2, '0') + '-' + 
-                  String(this.selectedDate.getDate()).padStart(2, '0'),
+            date: this.selectedDate.toLocaleDateString('en-CA', { 
+                timeZone: 'Australia/Adelaide'
+            }), // Format date in Adelaide timezone
             time: this.selectedTime
         };
         
@@ -1166,7 +1183,15 @@ class BookingCalendar {
                 // Refresh calendar availability to show the newly booked slot
                 await this.fetchCalendarAvailability();
                 
-                this.resetBooking();
+                // Update time slots for the currently selected date to show the new booking
+                if (this.selectedDate) {
+                    this.updateTimeSlots();
+                }
+                
+                // Small delay to let user see the time slot update before resetting
+                setTimeout(() => {
+                    this.resetBooking();
+                }, 1500);
             } else {
                 throw new Error(result.message || 'Failed to book appointment');
             }
