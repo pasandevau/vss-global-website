@@ -103,8 +103,13 @@ exports.handler = async (event, context) => {
                 const startTime = new Date(event.start.dateTime);
                 const endTime = new Date(event.end.dateTime);
                 
+                // Format date in Adelaide timezone to avoid timezone shifts
+                const adelaideDate = startTime.toLocaleDateString('en-CA', { 
+                    timeZone: 'Australia/Adelaide'
+                }); // Returns YYYY-MM-DD format
+                
                 const slot = {
-                    date: startTime.toISOString().split('T')[0], // YYYY-MM-DD format
+                    date: adelaideDate,
                     time: startTime.toLocaleTimeString('en-US', { 
                         hour: '2-digit', 
                         minute: '2-digit',

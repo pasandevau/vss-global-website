@@ -587,15 +587,6 @@ class BookingCalendar {
         this.currentYear = this.currentDate.getFullYear();
         this.bookedSlots = []; // Store booked time slots from Google Calendar
         
-        // Add a test booking for debugging (remove this later)
-        const today = new Date();
-        const testDate = today.toISOString().split('T')[0];
-        this.bookedSlots.push({
-            date: testDate,
-            time: '10:00 AM',
-            title: 'Test Booking'
-        });
-        
         this.monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
@@ -669,22 +660,41 @@ class BookingCalendar {
             bookedByDate[slot.date].push(slot);
         });
         
+        console.log('Updating calendar availability with booked slots:', bookedByDate);
+        console.log('Total available time slots:', this.availableTimeSlots.length);
+        
+        // Clear previous booking states
+        calendarDays.querySelectorAll('.calendar-day').forEach(dayBtn => {
+            dayBtn.classList.remove('fully-booked', 'partially-booked');
+            if (dayBtn.classList.contains('available')) {
+                dayBtn.disabled = false;
+            }
+        });
+        
         // Update calendar days to show booking status
         calendarDays.querySelectorAll('.calendar-day.available').forEach(dayBtn => {
             const dateStr = dayBtn.getAttribute('data-date');
+            console.log(`Checking day ${dateStr} for bookings`);
+            
             if (dateStr && bookedByDate[dateStr]) {
                 const bookedSlotsForDay = bookedByDate[dateStr];
                 const totalAvailableSlots = this.availableTimeSlots.length;
                 
+                console.log(`Day ${dateStr} has ${bookedSlotsForDay.length} booked slots out of ${totalAvailableSlots} total slots`);
+                
                 // If all slots are booked, gray out the entire day
                 if (bookedSlotsForDay.length >= totalAvailableSlots) {
+                    console.log(`Day ${dateStr} is fully booked - graying out`);
                     dayBtn.classList.remove('available');
                     dayBtn.classList.add('fully-booked');
                     dayBtn.disabled = true;
                 } else {
+                    console.log(`Day ${dateStr} is partially booked - adding indicator`);
                     // Some slots are booked, add partial booking indicator
                     dayBtn.classList.add('partially-booked');
                 }
+            } else {
+                console.log(`Day ${dateStr} has no bookings`);
             }
         });
     }
