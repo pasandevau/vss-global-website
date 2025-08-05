@@ -617,12 +617,19 @@ class BookingCalendar {
             const startDate = new Date(this.currentYear, this.currentMonth, 1);
             const endDate = new Date(this.currentYear, this.currentMonth + 1, 0);
             
-            const response = await fetch(`http://localhost:3001/api/calendar-availability?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`);
+            // Use different endpoints for local development vs production
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const apiEndpoint = isLocal 
+                ? `http://localhost:3001/api/calendar-availability?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
+                : `/.netlify/functions/calendar-availability?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`;
+            
+            const response = await fetch(apiEndpoint);
             
             if (response.ok) {
                 const data = await response.json();
                 this.bookedSlots = data.bookedSlots || [];
                 this.updateCalendarAvailability();
+                this.updateTimeSlots(); // Update time slots when calendar data is loaded
             } else {
                 console.warn('Failed to fetch calendar availability:', response.statusText);
             }
