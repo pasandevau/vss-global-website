@@ -587,6 +587,15 @@ class BookingCalendar {
         this.currentYear = this.currentDate.getFullYear();
         this.bookedSlots = []; // Store booked time slots from Google Calendar
         
+        // Add a test booking for debugging (remove this later)
+        const today = new Date();
+        const testDate = today.toISOString().split('T')[0];
+        this.bookedSlots.push({
+            date: testDate,
+            time: '10:00 AM',
+            title: 'Test Booking'
+        });
+        
         this.monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
@@ -876,11 +885,17 @@ class BookingCalendar {
                 return slotTime === timeValue;
             });
             
+            console.log(`Time slot ${timeValue}: isBooked = ${isBooked}`);
+            
             if (isBooked) {
+                console.log(`Marking time slot ${timeValue} as booked`);
                 button.classList.add('booked');
                 button.disabled = true;
                 button.innerHTML = button.innerHTML.replace(' (Booked)', '') + ' (Booked)';
+                console.log(`Time slot ${timeValue} classes after booking:`, button.className);
+                console.log(`Time slot ${timeValue} disabled:`, button.disabled);
             } else {
+                console.log(`Time slot ${timeValue} is available`);
                 button.classList.remove('booked');
                 button.disabled = false;
                 button.innerHTML = button.innerHTML.replace(' (Booked)', '');
