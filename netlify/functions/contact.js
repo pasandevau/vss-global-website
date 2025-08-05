@@ -60,7 +60,7 @@ exports.handler = async (event, context) => {
         }
 
         // Check for required environment variables
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD) {
             console.error('Missing email configuration');
             return {
                 statusCode: 500,
@@ -73,11 +73,11 @@ exports.handler = async (event, context) => {
         }
 
         // Create nodemailer transporter
-        const transporter = nodemailer.createTransporter({
+        const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
+                pass: process.env.EMAIL_APP_PASSWORD
             }
         });
 
