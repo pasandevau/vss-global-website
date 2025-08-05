@@ -40,6 +40,8 @@ exports.handler = async (event, context) => {
             };
         }
 
+        console.log('Calendar availability request received:', { startDate, endDate });
+        
         // Validate environment variables
         const requiredEnvVars = [
             'GOOGLE_CLIENT_ID',
@@ -51,12 +53,15 @@ exports.handler = async (event, context) => {
         const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
         if (missingVars.length > 0) {
             console.error('Missing environment variables:', missingVars);
+            console.log('Available env vars:', Object.keys(process.env).filter(key => key.startsWith('GOOGLE')));
             return {
-                statusCode: 500,
+                statusCode: 200, // Return 200 so frontend doesn't error
                 headers,
                 body: JSON.stringify({ 
-                    error: 'Server configuration error',
-                    bookedSlots: [] // Return empty array so calendar still works
+                    success: true,
+                    error: 'Server configuration incomplete',
+                    bookedSlots: [], // Return empty array so calendar still works
+                    debug: { missingVars, availableVars: Object.keys(process.env).filter(key => key.startsWith('GOOGLE')) }
                 })
             };
         }
@@ -73,29 +78,47 @@ exports.handler = async (event, context) => {
 
         const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
 
+        console.log('Attempting to fetch calendar events...');
+        console.log('Calendar ID:', process.env.GOOGLE_CALENDAR_ID);
+        
         // Fetch events from Google Calendar
         const response = await calendar.events.list({
             calendarId: process.env.GOOGLE_CALENDAR_ID,
-            timeMin: new Date(startDate).toISOString(),
-            timeMax: new Date(endDate).toISOString(),
+            timeMin: startDate,
+            timeMax: endDate,
             singleEvents: true,
             orderBy: 'startTime'
         });
 
+        console.log('Calendar API response status:', response.status);
         const events = response.data.items || [];
+        console.log('Found events:', events.length);
+        
+        const bookedSlots = [];
 
-        // Transform events into booked slots format
-        const bookedSlots = events.map(event => {
-            const startDateTime = new Date(event.start.dateTime || event.start.date);
-            const endDateTime = new Date(event.end.dateTime || event.end.date);
-            
-            return {
-                date: startDateTime.toISOString().split('T')[0], // YYYY-MM-DD format
-                startTime: startDateTime.toTimeString().substring(0, 5), // HH:MM format
-                endTime: endDateTime.toTimeString().substring(0, 5), // HH:MM format
-                title: event.summary || 'Appointment',
-                id: event.id
-            };
+        // Process events to extract booked time slots
+        events.forEach(event => {
+            console.log('Processing event:', event.summary, event.start);
+            if (event.start && event.start.dateTime) {
+                const startTime = new Date(event.start.dateTime);
+                const endTime = new Date(event.end.dateTime);
+                
+                const slot = {
+                    date: startTime.toISOString().split('T')[0], // YYYY-MM-DD format
+                    time: startTime.toLocaleTimeString('en-US', { 
+                        hour: '2-digit', 
+                        minute: '2-digit',
+                        hour12: true,
+                        timeZone: 'Australia/Adelaide'
+                    }),
+                    startTime: startTime.toISOString(),
+                    endTime: endTime.toISOString(),
+                    title: event.summary || 'Booked Appointment'
+                };
+                
+                console.log('Adding booked slot:', slot);
+                bookedSlots.push(slot);
+            }
         });
 
         console.log(`Found ${bookedSlots.length} booked slots between ${startDate} and ${endDate}`);

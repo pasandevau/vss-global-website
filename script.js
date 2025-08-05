@@ -592,10 +592,9 @@ class BookingCalendar {
             'July', 'August', 'September', 'October', 'November', 'December'
         ];
         
-        // Available time slots (9 AM to 5 PM, excluding lunch 12-1 PM)
+        // Available time slots (matching HTML time slots)
         this.availableTimeSlots = [
-            '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-            '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30'
+            '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'
         ];
         
         this.init();
@@ -623,15 +622,24 @@ class BookingCalendar {
                 ? `http://localhost:3001/api/calendar-availability?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
                 : `/.netlify/functions/calendar-availability?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`;
             
+            console.log('Fetching calendar availability from:', apiEndpoint);
             const response = await fetch(apiEndpoint);
             
+            console.log('Calendar availability response status:', response.status);
             if (response.ok) {
                 const data = await response.json();
+                console.log('Calendar availability data received:', data);
                 this.bookedSlots = data.bookedSlots || [];
+                console.log('Booked slots set to:', this.bookedSlots);
                 this.updateCalendarAvailability();
-                this.updateTimeSlots(); // Update time slots when calendar data is loaded
+                // Update time slots if a date is already selected
+                if (this.selectedDate) {
+                    this.updateTimeSlots();
+                }
             } else {
                 console.warn('Failed to fetch calendar availability:', response.statusText);
+                const errorText = await response.text();
+                console.warn('Error response:', errorText);
             }
         } catch (error) {
             console.warn('Error fetching calendar availability:', error);
@@ -843,6 +851,62 @@ class BookingCalendar {
         this.fetchCalendarAvailability();
     }
     
+    // Update time slots to show booked times for selected date
+    updateTimeSlots() {
+        if (!this.selectedDate) return;
+        
+        const selectedDateStr = this.selectedDate.toISOString().split('T')[0];
+        console.log('Updating time slots for date:', selectedDateStr);
+        
+        // Find booked slots for the selected date
+        const bookedSlotsForDate = this.bookedSlots.filter(slot => slot.date === selectedDateStr);
+        console.log('Booked slots for selected date:', bookedSlotsForDate);
+        
+        // Get all time slot buttons
+        const timeSlotButtons = document.querySelectorAll('.time-slot');
+        
+        timeSlotButtons.forEach(button => {
+            const timeValue = button.getAttribute('data-time');
+            
+            // Check if this time slot is booked
+            const isBooked = bookedSlotsForDate.some(slot => {
+                // Convert slot time to 24-hour format for comparison
+                const slotTime = this.convertTo24Hour(slot.time);
+                console.log(`Comparing slot time '${slot.time}' (converted: '${slotTime}') with time value '${timeValue}'`);
+                return slotTime === timeValue;
+            });
+            
+            if (isBooked) {
+                button.classList.add('booked');
+                button.disabled = true;
+                button.innerHTML = button.innerHTML.replace(' (Booked)', '') + ' (Booked)';
+            } else {
+                button.classList.remove('booked');
+                button.disabled = false;
+                button.innerHTML = button.innerHTML.replace(' (Booked)', '');
+            }
+        });
+    }
+    
+    // Helper method to convert 12-hour time format to 24-hour format
+    convertTo24Hour(time12h) {
+        const [time, modifier] = time12h.split(' ');
+        let [hours, minutes] = time.split(':');
+        hours = parseInt(hours, 10);
+        
+        if (modifier === 'AM' || modifier === 'am') {
+            if (hours === 12) {
+                hours = 0; // 12 AM = 00:xx
+            }
+        } else if (modifier === 'PM' || modifier === 'pm') {
+            if (hours !== 12) {
+                hours += 12; // 1 PM = 13:xx, but 12 PM = 12:xx
+            }
+        }
+        
+        return `${hours.toString().padStart(2, '0')}:${minutes}`;
+    }
+    
     selectDate(e) {
         const dateStr = e.target.getAttribute('data-date');
         if (!dateStr) return;
@@ -932,6 +996,7 @@ class BookingCalendar {
             this.currentYear--;
         }
         this.renderCalendar();
+        this.fetchCalendarAvailability(); // Fetch availability for new month
     }
     
     nextMonth() {
@@ -941,6 +1006,7 @@ class BookingCalendar {
             this.currentYear++;
         }
         this.renderCalendar();
+        this.fetchCalendarAvailability(); // Fetch availability for new month
     }
     
     updateSummaryDate() {
