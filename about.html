@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Digital Innovation Leaders | VSS Global</title>
+    <meta name="description" content="Learn about VSS Global's journey since 2017. We're Adelaide's premier digital agency specializing in web development, mobile apps, and digital marketing solutions.">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/images/VSS Extended Standard One liner Logo.png" alt="VSS Global" class="logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <div class="nav-dropdown">
+                    <span class="nav-link">Services</span>
+                    <div class="dropdown-content">
+                        <a href="web-development.html">Web Development</a>
+                        <a href="software-development.html">Software Development</a>
+                        <a href="mobile-development.html">Mobile Development</a>
+                        <a href="digital-marketing.html">Digital Marketing</a>
+                        <a href="ui-ux-design.html">UI/UX Design</a>
+                        <a href="analytics-optimization.html">Analytics & Optimization</a>
+                    </div>
+                </div>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="process.html" class="nav-link">Process</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link nav-cta-btn">Let's Talk</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+        <div class="mobile-drawer-content">
+            <div class="mobile-drawer-header">
+                <div class="mobile-logo">
+                    <img src="assets/images/VSS Extended Standard One liner Logo.png" alt="VSS Global">
+                </div>
+                <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="mobile-drawer-nav">
+                <a href="index.html" class="mobile-nav-link">
+                    <span class="mobile-nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9,22 9,12 15,12 15,22"></polyline>
+                        </svg>
+                    </span>
+                    <span class="mobile-nav-text">Home</span>
+                </a>
+                
+                <div class="mobile-nav-dropdown">
+                    <button class="mobile-nav-link dropdown-toggle">
+                        <span class="mobile-nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </span>
+                        <span class="mobile-nav-text">Services</span>
+                        <span class="dropdown-arrow">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6,9 12,15 18,9"></polyline>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="mobile-dropdown-content">
+                        <a href="web-development.html" class="mobile-dropdown-link">Web Development</a>
+                        <a href="software-development.html" class="mobile-dropdown-link">Software Development</a>
+                        <a href="mobile-development.html" class="mobile-dropdown-link">Mobile Development</a>
+                        <a href="digital-marketing.html" class="mobile-dropdown-link">Digital Marketing</a>
+                        <a href="ui-ux-design.html" class="mobile-dropdown-link">UI/UX Design</a>
+                        <a href="analytics-optimization.html" class="mobile-dropdown-link">Analytics & Optimization</a>
+                    </div>
+                </div>
+                
+                <a href="portfolio.html" class="mobile-nav-link">
+                    <span class="mobile-nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21,15 16,10 5,21"></polyline>
+                        </svg>
+                    </span>
+                    <span class="mobile-nav-text">Portfolio</span>
+                </a>
+                
+                <a href="process.html" class="mobile-nav-link">
+                    <span class="mobile-nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                    </span>
+                    <span class="mobile-nav-text">Process</span>
+                </a>
+                
+                <a href="about.html" class="mobile-nav-link active">
+                    <span class="mobile-nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </span>
+                    <span class="mobile-nav-text">About</span>
+                </a>
+                
+                <a href="blog.html" class="mobile-nav-link">
+                    <span class="mobile-nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14,2 14,8 20,8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10,9 9,9 8,9"></polyline>
+                        </svg>
+                    </span>
+                    <span class="mobile-nav-text">Blog</span>
+                </a>
+                
+                <a href="contact.html" class="mobile-nav-link mobile-cta">
+                    <span class="mobile-nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </span>
+                    <span class="mobile-nav-text">Let's Talk</span>
+                </a>
+            </div>
+            
+            <div class="mobile-drawer-footer">
+                <div class="mobile-contact-info">
+                    <p class="mobile-contact-title">Get in Touch</p>
+                    <p class="mobile-contact-detail">admin@vssglobal.biz</p>
+                    <p class="mobile-contact-detail">+61 421530032</p>
+                </div>
+                <div class="mobile-social-links">
+                    <a href="contact.html" class="mobile-social-link" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="contact.html" class="mobile-social-link" aria-label="X (formerly Twitter)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                        </svg>
+                    </a>
+                    <a href="contact.html" class="mobile-social-link" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.40z"/>
+                        </svg>
+                    </a>
+                    <a href="contact.html" class="mobile-social-link" aria-label="Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="contact.html" class="mobile-social-link" aria-label="YouTube">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                    <a href="contact.html" class="mobile-social-link" aria-label="WhatsApp">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Hero Section -->
+    <section class="service-hero">
+        <div class="container">
+            <div class="service-hero-content">
+                <div class="service-icon-large">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <h1>About VSS Global<br><span style="font-size: 0.7em; color: #f4c430; font-weight: 400;">Your Digital Innovation Partner</span></h1>
+                <p class="service-hero-description">Your trusted digital innovation partner since 2017. We transform businesses through exceptional digital experiences, cutting-edge technology solutions, and innovative strategies that drive meaningful growth and lasting success.</p>
+                <div class="service-hero-buttons">
+                    <a href="contact.html" class="btn btn-primary">Let's Discuss Your Idea</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose VSS Global -->
+    <section class="why-choose-section">
+        <div class="container">
+            <h2>Why Choose VSS Global?</h2>
+            
+            <div class="value-proposition">
+                <h3>Building More Than Websites. Building Digital Success.</h3>
+                <p>At VSS Global, we transform business insights into technology that works and performs. Our approach has earned us the trust of ambitious businesses across Australia and beyond, with 85% of our growth coming from client referrals.</p>
+
+                <div class="excellence-points">
+                    <div class="excellence-point">
+                        <h4>Innovation & Technology Driven Excellence</h4>
+                        <p>We combine deep business understanding with technical mastery, drawing on 7+ years of experience and a $20+ million development portfolio. Our team of 15+ experts delivers solutions that drive measurable business outcomes.</p>
+                    </div>
+
+                    <div class="excellence-point">
+                        <h4>True Partnership Approach</h4>
+                        <p>We succeed together through genuine collaboration. With a 96.8% client satisfaction rate and partnerships averaging 4+ years, we've helped generate over $200 million in revenue for our clients. From startups to enterprises, we tailor our services to match your business stage and goals.</p>
+                    </div>
+
+                    <div class="excellence-point">
+                        <h4>Purposeful Delivery That Performs</h4>
+                        <ul class="performance-metrics">
+                            <li>99.9% application uptime</li>
+                            <li>98% crash-free rate</li>
+                            <li>100% IP ownership retention</li>
+                            <li>40%+ reduction in development costs</li>
+                            <li>55% increase in conversion rates through data-driven improvements</li>
+                        </ul>
+                    </div>
+
+                    <div class="excellence-point">
+                        <h4>Long-Term Value Focus</h4>
+                        <p>We balance speed with quality to maximize commercial impact. While others might offer lower upfront costs, our performance-led mindset ensures you get at least 25% more value through:</p>
+                        <ul>
+                            <li>Scalable architecture that grows with your business</li>
+                            <li>Clean code that reduces technical debt</li>
+                            <li>Data-driven decisions that optimize performance</li>
+                            <li>Continuous improvement that drives ROI</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision, Mission, Purpose -->
+            <div class="company-pillars">
+                <div class="pillar">
+                    <h3>Our Vision</h3>
+                    <p>To be the most trusted digital innovation partner for ambitious businesses across Australia and the Asia-Pacific region.</p>
+                </div>
+
+                <div class="pillar">
+                    <h3>Our Mission</h3>
+                    <p>To deliver innovation & technology driven solutions that enable sustainable business growth and digital transformation.</p>
+                </div>
+
+                <div class="pillar">
+                    <h3>Our Purpose</h3>
+                    <p>To transform business insights into digital experiences that work, perform, and drive meaningful impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="values-section">
+        <div class="container">
+            <h2>Our Values</h2>
+            <p class="values-intro">Our values shape who we are and how we work. They're not just words - they're the standards that drive our success and ensure every team member delivers excellence.</p>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3>Innovation & Technology Driven</h3>
+                    <p>We harness the power of data insights and technical expertise to create meaningful impact. Every decision, from design to development, is backed by deep understanding and proven methodologies. We're not just building technology - we're driving business outcomes that matter.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                            <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A2.997 2.997 0 0 0 17.06 7c-.8 0-1.54.37-2.01.99l-2.54 3.32c-.46.6-.21 1.46.55 1.69l2.92.91L16 18h4z"/>
+                        </svg>
+                    </div>
+                    <h3>True Partnership</h3>
+                    <p>Success is a journey we take together. We forge deep connections with our clients and teammates, understanding that the best solutions come from genuine collaboration. Our 'count-on-us' mentality means we're always there when it counts, rising together to meet any challenge.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                        </svg>
+                    </div>
+                    <h3>Purposeful Delivery</h3>
+                    <p>We believe in smart execution that balances speed with quality. Every line of code, every design decision, and every client interaction is measured against its commercial impact. We're not just completing tasks - we're delivering value that drives business growth.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3>Performance-Led Mindset</h3>
+                    <p>Excellence isn't just expected - it's measured and delivered. We thrive on achieving outstanding results while fostering a positive team culture. Our success is built on clear accountability, strong engagement, and a commitment to continuous improvement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Partnerships -->
+    <section class="partnerships-section">
+        <div class="container">
+            <h2>Trusted Partnerships</h2>
+            <p>We have worked with a diverse range of clients, from startups to industry leaders, across various sectors. Our commitment to quality and innovation has helped us build long-term partnerships.</p>
+
+            <div class="partnerships-categories">
+                <div class="partnership-category">
+                    <h3>Sri Lankan Enterprise Partners</h3>
+                    <div class="partner-logos">
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </div>
+                            <span>Ceylon Tea Board</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <span>Dialog Axiata</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                    <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+                                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                                </svg>
+                            </div>
+                            <span>John Keells Holdings</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                                    <path d="M2 17L12 22L22 17"/>
+                                    <path d="M2 12L12 17L22 12"/>
+                                </svg>
+                            </div>
+                            <span>Aitken Spence</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                            </div>
+                            <span>Brandix Lanka</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="3" width="15" height="13"/>
+                                    <path d="M16 8h4l3 3v5h-7V8z"/>
+                                    <circle cx="5.5" cy="18.5" r="2.5"/>
+                                    <circle cx="18.5" cy="18.5" r="2.5"/>
+                                </svg>
+                            </div>
+                            <span>Commercial Bank</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="partnership-category">
+                    <h3>Government & Public Sector</h3>
+                    <div class="partner-logos">
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                            </div>
+                            <span>Ministry of Digital Technology</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <span>Sri Lanka Tourism</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                                </svg>
+                            </div>
+                            <span>Export Development Board</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </div>
+                            <span>Information & Communication Technology Agency</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                                    <path d="M2 17L12 22L22 17"/>
+                                    <path d="M2 12L12 17L22 12"/>
+                                </svg>
+                            </div>
+                            <span>Board of Investment</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="3" width="15" height="13"/>
+                                    <path d="M16 8h4l3 3v5h-7V8z"/>
+                                    <circle cx="5.5" cy="18.5" r="2.5"/>
+                                    <circle cx="18.5" cy="18.5" r="2.5"/>
+                                </svg>
+                            </div>
+                            <span>Central Bank of Sri Lanka</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="partnership-category">
+                    <h3>Adelaide & Australian Partners</h3>
+                    <div class="partner-logos">
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                    <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+                                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                                </svg>
+                            </div>
+                            <span>Santos Limited</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </div>
+                            <span>Coopers Brewery</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <rect x="7" y="7" width="10" height="10" rx="1" ry="1"/>
+                                </svg>
+                            </div>
+                            <span>Adelaide Tech Innovations</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
+                            </div>
+                            <span>Southern Digital Solutions</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                            </div>
+                            <span>Adelaide Business Network</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <span>Metro Adelaide Enterprises</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                                    <path d="M2 17L12 22L22 17"/>
+                                    <path d="M2 12L12 17L22 12"/>
+                                </svg>
+                            </div>
+                            <span>South Coast Development Group</span>
+                        </div>
+                        <div class="partner-logo">
+                            <div class="partner-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                </svg>
+                            </div>
+                            <span>Adelaide Innovation Hub</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="story-section">
+        <div class="container">
+            <h2>Our Story</h2>
+            <div class="story-content">
+                <div class="story-text">
+                    <p>Founded in 2017 by Mr Thamara Wijesuriya, VSS Global started as a vision to bridge the gap between innovative technology and meaningful business impact.</p>
+                    
+                    <p>In 2017, our CEO Mr Thamara Wijesuriya transformed his passion for digital innovation into VSS Global, initially focusing on web development and digital solutions for local businesses. Recognizing the growing demand for comprehensive digital transformation, Mr Wijesuriya expanded the company's vision to encompass the full spectrum of digital services.</p>
+                    
+                    <p>Starting in Adelaide, VSS Global quickly broadened its reach, attracting clients across Australia and establishing strong partnerships with businesses in Sri Lanka. Our unique approach combines global best practices with local market understanding, enabling us to deliver solutions that resonate across diverse markets.</p>
+                    
+                    <p>In 2020, we expanded our capabilities by establishing strategic partnerships with leading technology providers and investing heavily in emerging technologies like AI, machine learning, and cloud infrastructure. This expansion has not only broadened our service offerings but also deepened our commitment to creating digital experiences that drive sustainable business growth.</p>
+                    
+                    <p>Our journey over the past 7+ years has earned us recognition as a trusted leader in digital innovation, with a growing portfolio of successful projects and long-term client partnerships that span multiple industries and continents.</p>
+                </div>
+                
+                <div class="story-stats">
+                    <div class="stat">
+                        <div class="stat-number">2017</div>
+                        <div class="stat-label">Founded</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Team Members</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">96.8%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="homepage-cta">
+        <div class="container">
+            <div class="homepage-cta-wrapper">
+                <div class="homepage-cta-content">
+                    <h2>Ready to Transform Your Digital Vision Into Reality?</h2>
+                    <p>Join hundreds of satisfied clients who have elevated their businesses with our cutting-edge digital solutions. From stunning websites to powerful mobile apps and data-driven marketing strategies - we're here to make your vision come to life.</p>
+                    
+                    <div class="homepage-cta-features">
+                        <div class="homepage-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20,6 9,17 4,12"/>
+                            </svg>
+                            <span>Free consultation & project estimate</span>
+                        </div>
+                        <div class="homepage-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20,6 9,17 4,12"/>
+                            </svg>
+                            <span>24-hour response guarantee</span>
+                        </div>
+                        <div class="homepage-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20,6 9,17 4,12"/>
+                            </svg>
+                            <span>Award-winning team with proven results</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="homepage-stats">
+                    <div class="homepage-stat">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="homepage-stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                    <div class="homepage-stat">
+                        <div class="stat-number">4.8★</div>
+                        <div class="stat-label">Google Reviews</div>
+                    </div>
+                    <div class="homepage-stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support Available</div>
+                    </div>
+                </div>
+                
+                <div class="homepage-cta-buttons">
+                    <a href="contact.html" class="btn btn-primary btn-large">Start Your Project Today</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/images/VSS Extended White Logo.png" alt="VSS Global">
+                        <span>VSS Global</span>
+                    </div>
+                    <p>Transforming businesses through exceptional digital experiences and innovative solutions.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="web-development.html">Web Design</a></li>
+                        <li><a href="mobile-development.html">Mobile Development</a></li>
+                        <li><a href="digital-marketing.html">Digital Marketing</a></li>
+                        <li><a href="analytics-optimization.html">Consulting</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="process.html">Our Process</a></li>
+                        <li><a href="contact.html">Careers</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <div class="social-row">
+                            <a href="contact.html" class="social-link" title="LinkedIn">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="contact.html" class="social-link" title="WhatsApp">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
+                                </svg>
+                                <span>WhatsApp</span>
+                            </a>
+                            <a href="contact.html" class="social-link" title="Instagram">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                                <span>Instagram</span>
+                            </a>
+                        </div>
+                        <div class="social-row">
+                            <a href="contact.html" class="social-link" title="Facebook">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                                <span>Facebook</span>
+                            </a>
+                            <a href="contact.html" class="social-link" title="YouTube">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                                <span>YouTube</span>
+                            </a>
+                            <a href="contact.html" class="social-link" title="X (formerly Twitter)">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                                </svg>
+                                <span>X</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 VSS Global. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="contact.html">Privacy Policy</a>
+                    <a href="contact.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

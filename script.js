@@ -24,10 +24,97 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScroll = currentScroll;
     });
 
-    // Mobile navigation toggle
-    navToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        navToggle.classList.toggle('active');
+    // Mobile drawer navigation
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const drawerClose = document.getElementById('drawerClose');
+    
+    // Debug: Log what elements we found
+    console.log('Mobile drawer elements found:');
+    console.log('mobileDrawer:', mobileDrawer);
+    console.log('drawerOverlay:', drawerOverlay);
+    console.log('drawerClose:', drawerClose);
+    const mobileDropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    
+    // Toggle mobile drawer (open/close)
+    navToggle.addEventListener('click', (e) => {
+        console.log('Nav toggle clicked');
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Check if drawer is currently open
+        const isOpen = mobileDrawer.classList.contains('active');
+        
+        if (isOpen) {
+            // Close the drawer
+            console.log('Closing drawer via nav toggle');
+            closeMobileDrawer();
+        } else {
+            // Open the drawer
+            console.log('Opening drawer via nav toggle');
+            mobileDrawer.classList.add('active');
+            navToggle.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+    });
+    
+    // Close mobile drawer
+    function closeMobileDrawer() {
+        console.log('closeMobileDrawer function called');
+        mobileDrawer.classList.remove('active');
+        navToggle.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+        console.log('Drawer closed, active class removed');
+    }
+    
+    // Make close function globally available for testing
+    window.testCloseDrawer = function() {
+        console.log('Manual test: Closing drawer...');
+        closeMobileDrawer();
+    };
+    
+    // Make drawer state check function available
+    window.checkDrawerState = function() {
+        console.log('Drawer active:', mobileDrawer.classList.contains('active'));
+        console.log('Nav toggle active:', navToggle.classList.contains('active'));
+        console.log('Body overflow:', document.body.style.overflow);
+    };
+    
+    // Close drawer when clicking overlay
+    drawerOverlay.addEventListener('click', closeMobileDrawer);
+    
+    // Note: Close button in drawer is now just for visual purposes
+    // The nav-toggle button in header handles both open and close functionality
+    
+    // Close drawer when clicking on navigation links (except dropdown toggles)
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link:not(.dropdown-toggle)');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            closeMobileDrawer();
+        });
+    });
+    
+    // Handle mobile dropdown toggles
+    mobileDropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const dropdown = toggle.closest('.mobile-nav-dropdown');
+            dropdown.classList.toggle('active');
+        });
+    });
+    
+    // Close drawer on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileDrawer.classList.contains('active')) {
+            closeMobileDrawer();
+        }
+    });
+    
+    // Handle window resize - close drawer if screen becomes large
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && mobileDrawer.classList.contains('active')) {
+            closeMobileDrawer();
+        }
     });
 
     // Smooth scrolling for navigation links (only for internal anchor links)
@@ -72,6 +159,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Skip buttons that have href attributes (let them work normally)
             if (button.hasAttribute('href')) {
                 return; // Let the link work normally
+            }
+            
+            // Skip mobile dropdown toggles (let them work with their specific handler)
+            if (button.classList.contains('dropdown-toggle') || button.classList.contains('drawer-close') || button.classList.contains('nav-toggle')) {
+                return; // Let mobile navigation handlers work
             }
             
             // Handle different button types for buttons without href
@@ -493,10 +585,17 @@ class BookingCalendar {
         this.selectedTime = null;
         this.currentMonth = this.currentDate.getMonth();
         this.currentYear = this.currentDate.getFullYear();
+        this.bookedSlots = []; // Store booked time slots from Google Calendar
         
         this.monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        
+        // Available time slots (9 AM to 5 PM, excluding lunch 12-1 PM)
+        this.availableTimeSlots = [
+            '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+            '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30'
         ];
         
         this.init();
@@ -508,6 +607,142 @@ class BookingCalendar {
         this.bindEvents();
         this.renderCalendar();
         this.handleMeetingTypeButtons();
+        this.setupFormValidation();
+        this.fetchCalendarAvailability();
+    }
+    
+    // Fetch calendar availability from Google Calendar
+    async fetchCalendarAvailability() {
+        try {
+            const startDate = new Date(this.currentYear, this.currentMonth, 1);
+            const endDate = new Date(this.currentYear, this.currentMonth + 1, 0);
+            
+            const response = await fetch(`http://localhost:3001/api/calendar-availability?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`);
+            
+            if (response.ok) {
+                const data = await response.json();
+                this.bookedSlots = data.bookedSlots || [];
+                this.updateCalendarAvailability();
+            } else {
+                console.warn('Failed to fetch calendar availability:', response.statusText);
+            }
+        } catch (error) {
+            console.warn('Error fetching calendar availability:', error);
+        }
+    }
+    
+    // Update calendar to show booked slots
+    updateCalendarAvailability() {
+        const calendarDays = document.getElementById('calendarDays');
+        if (!calendarDays) return;
+        
+        // Group booked slots by date
+        const bookedByDate = {};
+        this.bookedSlots.forEach(slot => {
+            if (!bookedByDate[slot.date]) {
+                bookedByDate[slot.date] = [];
+            }
+            bookedByDate[slot.date].push(slot);
+        });
+        
+        // Update calendar days to show booking status
+        calendarDays.querySelectorAll('.calendar-day.available').forEach(dayBtn => {
+            const dateStr = dayBtn.getAttribute('data-date');
+            if (dateStr && bookedByDate[dateStr]) {
+                const bookedSlotsForDay = bookedByDate[dateStr];
+                const totalAvailableSlots = this.availableTimeSlots.length;
+                
+                // If all slots are booked, gray out the entire day
+                if (bookedSlotsForDay.length >= totalAvailableSlots) {
+                    dayBtn.classList.remove('available');
+                    dayBtn.classList.add('fully-booked');
+                    dayBtn.disabled = true;
+                } else {
+                    // Some slots are booked, add partial booking indicator
+                    dayBtn.classList.add('partially-booked');
+                }
+            }
+        });
+    }
+    
+    // Update time slots based on selected date
+    updateTimeSlots() {
+        if (!this.selectedDate) return;
+        
+        const selectedDateStr = this.selectedDate.toISOString().split('T')[0];
+        const bookedSlotsForDate = this.bookedSlots.filter(slot => slot.date === selectedDateStr);
+        
+        // Update time slot buttons
+        const timeSlots = document.querySelectorAll('.time-slot');
+        timeSlots.forEach(slot => {
+            const timeStr = slot.getAttribute('data-time');
+            const isBooked = bookedSlotsForDate.some(bookedSlot => bookedSlot.startTime === timeStr);
+            
+            if (isBooked) {
+                slot.classList.add('booked');
+                slot.disabled = true;
+                slot.textContent = slot.textContent.replace(' (Booked)', '') + ' (Booked)';
+            } else {
+                slot.classList.remove('booked');
+                slot.disabled = false;
+                slot.textContent = slot.textContent.replace(' (Booked)', '');
+            }
+        });
+    }
+    
+    // Setup form validation
+    setupFormValidation() {
+        const form = document.getElementById('appointmentForm');
+        const submitBtn = form?.querySelector('button[type="submit"]');
+        
+        if (!form || !submitBtn) return;
+        
+        const requiredFields = [
+            'name', 'email', 'phone', 'meetingType', 'projectType', 'description'
+        ];
+        
+        const validateForm = () => {
+            let isValid = true;
+            
+            // Check required fields
+            requiredFields.forEach(fieldName => {
+                const field = form.querySelector(`[name="${fieldName}"]`);
+                if (field && (!field.value || field.value.trim() === '')) {
+                    isValid = false;
+                }
+            });
+            
+            // Check if date and time are selected
+            if (!this.selectedDate || !this.selectedTime) {
+                isValid = false;
+            }
+            
+            // Enable/disable submit button
+            submitBtn.disabled = !isValid;
+            
+            if (isValid) {
+                submitBtn.classList.remove('disabled');
+                submitBtn.classList.add('enabled');
+            } else {
+                submitBtn.classList.add('disabled');
+                submitBtn.classList.remove('enabled');
+            }
+        };
+        
+        // Add event listeners to all form fields
+        requiredFields.forEach(fieldName => {
+            const field = form.querySelector(`[name="${fieldName}"]`);
+            if (field) {
+                field.addEventListener('input', validateForm);
+                field.addEventListener('change', validateForm);
+            }
+        });
+        
+        // Store validation function for later use
+        this.validateForm = validateForm;
+        
+        // Initial validation
+        validateForm();
     }
     
     bindEvents() {
@@ -596,13 +831,19 @@ class BookingCalendar {
         calendarDays.querySelectorAll('.calendar-day.available').forEach(day => {
             day.addEventListener('click', (e) => this.selectDate(e));
         });
+        
+        // Fetch calendar availability for the current month
+        this.fetchCalendarAvailability();
     }
     
     selectDate(e) {
         const dateStr = e.target.getAttribute('data-date');
         if (!dateStr) return;
         
-        this.selectedDate = new Date(dateStr + 'T00:00:00');
+        // Parse date components to avoid timezone issues
+        const [year, month, day] = dateStr.split('-').map(Number);
+        // Create date in local context (Adelaide timezone)
+        this.selectedDate = new Date(year, month - 1, day, 0, 0, 0, 0);
         
         // Remove previous selection
         document.querySelectorAll('.calendar-day.selected').forEach(day => {
@@ -639,6 +880,14 @@ class BookingCalendar {
         
         // Update summary date
         this.updateSummaryDate();
+        
+        // Update time slots based on booked appointments
+        this.updateTimeSlots();
+        
+        // Validate form after date selection
+        if (this.validateForm) {
+            this.validateForm();
+        }
     }
     
     selectTime(e) {
@@ -662,6 +911,11 @@ class BookingCalendar {
         
         // Update summary time
         this.updateSummaryTime();
+        
+        // Validate form after time selection
+        if (this.validateForm) {
+            this.validateForm();
+        }
     }
     
     previousMonth() {
@@ -776,7 +1030,9 @@ class BookingCalendar {
             meetingType: formData.get('meetingType'),
             projectType: formData.get('projectType'),
             description: formData.get('description'),
-            date: this.selectedDate.toISOString().split('T')[0],
+            date: this.selectedDate.getFullYear() + '-' + 
+                  String(this.selectedDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                  String(this.selectedDate.getDate()).padStart(2, '0'),
             time: this.selectedTime
         };
         
@@ -808,6 +1064,10 @@ class BookingCalendar {
                     `🎉 Appointment Confirmed!`,
                     `Thank you ${appointmentData.name}! Your consultation has been successfully booked.\n\n📅 Date: ${result.appointmentDetails.date}\n⏰ Time: ${result.appointmentDetails.time}\n📍 Type: ${result.appointmentDetails.meetingType}${result.meetingLink ? `\n\n🔗 Video Call Link: ${result.meetingLink}` : ''}\n\n📧 You'll receive a confirmation email with all details and calendar invite shortly.\n\nWe look forward to discussing your project!`
                 );
+                
+                // Refresh calendar availability to show the newly booked slot
+                await this.fetchCalendarAvailability();
+                
                 this.resetBooking();
             } else {
                 throw new Error(result.message || 'Failed to book appointment');
@@ -1063,7 +1323,684 @@ class BookingCalendar {
     }
 }
 
-// Initialize booking calendar when DOM is loaded
+// Contact Form Handler
+class ContactForm {
+    constructor() {
+        console.log('ContactForm constructor called');
+        this.form = document.querySelector('.contact-form');
+        this.submitBtn = this.form?.querySelector('button[type="submit"]');
+        
+        console.log('Form found:', this.form);
+        console.log('Submit button found:', this.submitBtn);
+        
+        if (this.form) {
+            this.init();
+        } else {
+            console.log('No contact form found on this page');
+        }
+    }
+    
+    init() {
+        console.log('ContactForm init called');
+        this.setupFormValidation();
+        
+        // Add form submit event listener
+        this.form.addEventListener('submit', this.handleSubmit.bind(this));
+        console.log('Form submit event listener added');
+        
+        // Also add direct button click handler as backup
+        if (this.submitBtn) {
+            this.submitBtn.addEventListener('click', (e) => {
+                console.log('Button clicked directly!');
+                e.preventDefault();
+                this.handleSubmit(e);
+            });
+            console.log('Button click event listener added');
+        }
+    }
+    
+    setupFormValidation() {
+        console.log('Setting up form validation');
+        const requiredFields = ['firstName', 'lastName', 'email', 'service', 'message'];
+        const inputs = this.form.querySelectorAll('input, select, textarea');
+        
+        console.log('Required fields:', requiredFields);
+        console.log('Found inputs:', inputs.length);
+        
+        const validateForm = () => {
+            let isValid = true;
+            console.log('Validating form...');
+            
+            // Check required fields
+            for (const fieldName of requiredFields) {
+                const field = this.form.querySelector(`[name="${fieldName}"]`);
+                console.log(`Field ${fieldName}:`, field, field?.value);
+                if (!field || !field.value.trim()) {
+                    isValid = false;
+                    break;
+                }
+            }
+            
+            console.log('Form is valid:', isValid);
+            
+            // Update submit button state
+            if (this.submitBtn) {
+                if (isValid) {
+                    this.submitBtn.classList.remove('disabled');
+                    this.submitBtn.classList.add('enabled');
+                    this.submitBtn.disabled = false;
+                    console.log('Button enabled');
+                } else {
+                    this.submitBtn.classList.remove('enabled');
+                    this.submitBtn.classList.add('disabled');
+                    this.submitBtn.disabled = true;
+                    console.log('Button disabled');
+                }
+            }
+        };
+        
+        // Add event listeners to all form inputs
+        inputs.forEach(input => {
+            input.addEventListener('input', validateForm);
+            input.addEventListener('change', validateForm);
+        });
+        
+        // Initial validation
+        validateForm();
+    }
+    
+    async handleSubmit(e) {
+        e.preventDefault();
+        console.log('Form submitted!');
+        
+        if (!this.submitBtn) {
+            console.log('No submit button found');
+            return;
+        }
+        
+        try {
+            // Update button state
+            const originalText = this.submitBtn.textContent;
+            this.submitBtn.textContent = '📤 Sending Message...';
+            this.submitBtn.disabled = true;
+            
+            // Collect form data
+            const formData = new FormData(this.form);
+            const contactData = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                company: formData.get('company'),
+                service: formData.get('service'),
+                budget: formData.get('budget'),
+                timeline: formData.get('timeline'),
+                message: formData.get('message'),
+                newsletter: formData.get('newsletter') === 'on'
+            };
+            
+            // Send to backend API
+            const apiUrl = window.location.hostname === 'localhost' ? 
+                'http://localhost:3001/api/contact' : 
+                '/.netlify/functions/contact';
+            
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(contactData)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                // Show success message
+                this.showSuccessMessage(
+                    '🎉 Message Sent Successfully!',
+                    `Thank you ${result.contactDetails.name}! We've received your inquiry about ${result.contactDetails.service}.\n\n✅ Confirmation email sent to ${result.contactDetails.email}\n⏰ We'll contact you within 24 hours\n📋 Our team is already reviewing your project details\n\nWe're excited to discuss how VSS Global can help bring your vision to life!`
+                );
+                
+                // Reset form
+                this.form.reset();
+                this.setupFormValidation(); // Re-run validation to disable button
+            } else {
+                throw new Error(result.message || 'Failed to send message');
+            }
+            
+            // Reset button state
+            this.submitBtn.textContent = originalText;
+            this.submitBtn.disabled = false;
+            
+        } catch (error) {
+            console.error('Error sending contact form:', error);
+            
+            // Show error message
+            this.showErrorMessage(
+                '❌ Message Failed to Send',
+                `Sorry, we couldn't send your message at this time. Please try again or contact us directly at admin@vssglobal.biz.\n\nError: ${error.message}`
+            );
+            
+            // Reset button state
+            this.submitBtn.textContent = '🚀 Let\'s Start Your Project - We\'ll Contact You Within 24 Hours!';
+            this.submitBtn.disabled = false;
+        }
+    }
+    
+    showSuccessMessage(title, message) {
+        this.showModal(title, message, 'success');
+    }
+    
+    showErrorMessage(title, message) {
+        this.showModal(title, message, 'error');
+    }
+    
+    showModal(title, message, type = 'success') {
+        // Remove existing modal if any
+        const existingModal = document.querySelector('.contact-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Create modal HTML
+        const modal = document.createElement('div');
+        modal.className = 'contact-modal';
+        modal.innerHTML = `
+            <div class="contact-modal-overlay">
+                <div class="contact-modal-content ${type}">
+                    <div class="contact-modal-header">
+                        <h3>${title}</h3>
+                        <button class="contact-modal-close">&times;</button>
+                    </div>
+                    <div class="contact-modal-body">
+                        <p>${message.replace(/\n/g, '<br>')}</p>
+                    </div>
+                    <div class="contact-modal-footer">
+                        <button class="btn contact-modal-ok">OK</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add modal styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .contact-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .contact-modal-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: fadeIn 0.3s ease;
+            }
+            
+            .contact-modal-content {
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+                max-width: 500px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                animation: slideIn 0.3s ease;
+            }
+            
+            .contact-modal-content.success {
+                border-top: 4px solid #28a745;
+            }
+            
+            .contact-modal-content.error {
+                border-top: 4px solid #dc3545;
+            }
+            
+            .contact-modal-header {
+                padding: 20px 20px 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .contact-modal-header h3 {
+                margin: 0;
+                color: #333;
+                font-size: 1.5rem;
+            }
+            
+            .contact-modal-close {
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #999;
+                padding: 0;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .contact-modal-close:hover {
+                color: #333;
+            }
+            
+            .contact-modal-body {
+                padding: 20px;
+                line-height: 1.6;
+            }
+            
+            .contact-modal-body p {
+                margin: 0;
+                color: #555;
+            }
+            
+            .contact-modal-footer {
+                padding: 0 20px 20px 20px;
+                text-align: right;
+            }
+            
+            .contact-modal-ok {
+                background: linear-gradient(135deg, #FFD700, #FFA500);
+                color: #333;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
+            
+            .contact-modal-ok:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-50px) scale(0.95);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+        `;
+        
+        document.head.appendChild(style);
+        document.body.appendChild(modal);
+        
+        // Add event listeners
+        const closeBtn = modal.querySelector('.contact-modal-close');
+        const okBtn = modal.querySelector('.contact-modal-ok');
+        const overlay = modal.querySelector('.contact-modal-overlay');
+        
+        const closeModal = () => {
+            modal.remove();
+            style.remove();
+        };
+        
+        closeBtn.addEventListener('click', closeModal);
+        okBtn.addEventListener('click', closeModal);
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeModal();
+            }
+        });
+        
+        // Close on Escape key
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        
+        document.addEventListener('keydown', handleEscape);
+    }
+}
+
+// Newsletter Subscription Class
+class NewsletterSubscription {
+    constructor() {
+        this.form = document.getElementById('newsletterForm');
+        this.emailInput = document.getElementById('newsletterEmail');
+        this.messageDiv = document.getElementById('newsletterMessage');
+        this.submitBtn = this.form?.querySelector('button[type="submit"]');
+        
+        if (this.form) {
+            this.init();
+        }
+    }
+    
+    init() {
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        
+        // Add real-time email validation
+        this.emailInput.addEventListener('input', () => this.validateEmail());
+        this.emailInput.addEventListener('blur', () => this.validateEmail());
+    }
+    
+    validateEmail() {
+        const email = this.emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (email && !emailRegex.test(email)) {
+            this.emailInput.style.borderColor = '#dc3545';
+            this.showMessage('Please enter a valid email address', 'error');
+            return false;
+        } else {
+            this.emailInput.style.borderColor = '';
+            this.hideMessage();
+            return true;
+        }
+    }
+    
+    async handleSubmit(e) {
+        e.preventDefault();
+        
+        const email = this.emailInput.value.trim();
+        
+        // Validate email
+        if (!email) {
+            this.showMessage('Please enter your email address', 'error');
+            this.emailInput.focus();
+            return;
+        }
+        
+        if (!this.validateEmail()) {
+            this.emailInput.focus();
+            return;
+        }
+        
+        // Update button state
+        const originalText = this.submitBtn.textContent;
+        this.submitBtn.textContent = 'Subscribing...';
+        this.submitBtn.disabled = true;
+        
+        try {
+            // Use different endpoints for local development vs production
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const apiEndpoint = isLocal ? 'http://localhost:3001/api/newsletter' : '/.netlify/functions/newsletter-subscription';
+            
+            const response = await fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                this.showSuccessMessage(
+                    '🎉 Welcome to VSS Global Newsletter!',
+                    `Thank you for subscribing! We've sent a welcome email to ${email} with all the details.\n\n📧 Check your inbox (and spam folder) for your welcome message\n🚀 You'll receive valuable insights, tips, and industry trends\n💡 Be the first to know about our latest projects and updates\n\nWe're excited to have you in our digital community!`
+                );
+                
+                // Reset form
+                this.form.reset();
+                this.hideMessage();
+                
+            } else {
+                this.showMessage(result.message || 'Subscription failed. Please try again.', 'error');
+            }
+            
+        } catch (error) {
+            console.error('Newsletter subscription error:', error);
+            this.showErrorMessage(
+                '❌ Subscription Failed',
+                `Sorry, we couldn't process your subscription at this time. Please try again or contact us directly at admin@vssglobal.biz.\n\nError: ${error.message}`
+            );
+        } finally {
+            // Reset button state
+            this.submitBtn.textContent = originalText;
+            this.submitBtn.disabled = false;
+        }
+    }
+    
+    showMessage(message, type = 'info') {
+        this.messageDiv.textContent = message;
+        this.messageDiv.className = `form-message ${type}`;
+        this.messageDiv.style.display = 'block';
+        
+        // Auto-hide success messages after 5 seconds
+        if (type === 'success') {
+            setTimeout(() => this.hideMessage(), 5000);
+        }
+    }
+    
+    hideMessage() {
+        this.messageDiv.style.display = 'none';
+    }
+    
+    showSuccessMessage(title, message) {
+        this.showModal(title, message, 'success');
+    }
+    
+    showErrorMessage(title, message) {
+        this.showModal(title, message, 'error');
+    }
+    
+    showModal(title, message, type = 'success') {
+        // Remove existing modal if any
+        const existingModal = document.querySelector('.newsletter-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Create modal HTML
+        const modal = document.createElement('div');
+        modal.className = 'newsletter-modal';
+        modal.innerHTML = `
+            <div class="newsletter-modal-overlay"></div>
+            <div class="newsletter-modal-content ${type}">
+                <div class="newsletter-modal-header">
+                    <h3>${title}</h3>
+                    <button class="newsletter-modal-close" aria-label="Close">&times;</button>
+                </div>
+                <div class="newsletter-modal-body">
+                    <p style="white-space: pre-line; line-height: 1.6;">${message}</p>
+                </div>
+                <div class="newsletter-modal-footer">
+                    <button class="newsletter-modal-ok btn btn-primary">Got it!</button>
+                </div>
+            </div>
+        `;
+        
+        // Add modal styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .newsletter-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .newsletter-modal-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(5px);
+                animation: fadeIn 0.3s ease;
+            }
+            
+            .newsletter-modal-content {
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+                max-width: 500px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                animation: slideIn 0.3s ease;
+                position: relative;
+                z-index: 1;
+            }
+            
+            .newsletter-modal-content.success {
+                border-top: 4px solid #28a745;
+            }
+            
+            .newsletter-modal-content.error {
+                border-top: 4px solid #dc3545;
+            }
+            
+            .newsletter-modal-header {
+                padding: 20px 20px 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .newsletter-modal-header h3 {
+                margin: 0;
+                color: #333;
+                font-size: 1.25rem;
+            }
+            
+            .newsletter-modal-close {
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #666;
+                padding: 0;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                transition: all 0.2s ease;
+            }
+            
+            .newsletter-modal-close:hover {
+                background: #f0f0f0;
+                color: #333;
+            }
+            
+            .newsletter-modal-body {
+                padding: 20px;
+            }
+            
+            .newsletter-modal-body p {
+                margin: 0;
+                color: #555;
+                line-height: 1.6;
+            }
+            
+            .newsletter-modal-footer {
+                padding: 0 20px 20px 20px;
+                text-align: center;
+            }
+            
+            .newsletter-modal-ok {
+                padding: 10px 30px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.2s ease;
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-50px) scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+        `;
+        
+        document.head.appendChild(style);
+        document.body.appendChild(modal);
+        
+        // Add event listeners
+        const closeBtn = modal.querySelector('.newsletter-modal-close');
+        const okBtn = modal.querySelector('.newsletter-modal-ok');
+        const overlay = modal.querySelector('.newsletter-modal-overlay');
+        
+        const closeModal = () => {
+            modal.remove();
+            style.remove();
+        };
+        
+        closeBtn.addEventListener('click', closeModal);
+        okBtn.addEventListener('click', closeModal);
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeModal();
+            }
+        });
+        
+        // Close on Escape key
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        
+        document.addEventListener('keydown', handleEscape);
+    }
+}
+
+// Initialize components when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    new BookingCalendar();
+    // Initialize booking calendar (for index.html)
+    if (document.querySelector('.booking-calendar')) {
+        new BookingCalendar();
+    }
+    
+    // Initialize contact form (for contact.html)
+    if (document.querySelector('.contact-form')) {
+        new ContactForm();
+    }
+    
+    // Initialize newsletter subscription (for blog.html)
+    if (document.getElementById('newsletterForm')) {
+        new NewsletterSubscription();
+    }
 });
