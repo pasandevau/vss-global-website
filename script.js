@@ -2110,8 +2110,190 @@ class NewsletterSubscription {
     }
 }
 
+// Service Tabs Functionality
+function initServiceTabs() {
+    const serviceTabs = document.querySelectorAll('.service-tab');
+    const serviceContents = document.querySelectorAll('.service-content');
+    
+    if (serviceTabs.length === 0 || serviceContents.length === 0) {
+        return; // Exit if elements don't exist
+    }
+    
+    serviceTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetService = tab.getAttribute('data-service');
+            
+            // Remove active class from all tabs
+            serviceTabs.forEach(t => t.classList.remove('active'));
+            
+            // Remove active class from all content areas
+            serviceContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            tab.classList.add('active');
+            
+            // Show corresponding content
+            const targetContent = document.getElementById(`${targetService}-content`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+}
+
+// Reviews Carousel Functionality
+function initReviewsCarousel() {
+    const reviewsTrack = document.getElementById('reviewsTrack');
+    const reviewCards = document.querySelectorAll('.review-card');
+    const prevBtn = document.getElementById('reviewsPrev');
+    const nextBtn = document.getElementById('reviewsNext');
+    const indicatorsContainer = document.getElementById('reviewsIndicators');
+    
+    if (!reviewsTrack || reviewCards.length === 0) {
+        return;
+    }
+    
+    let currentIndex = 0;
+    const totalReviews = reviewCards.length;
+    let autoSlideInterval;
+    
+    // Create indicators
+    function createIndicators() {
+        indicatorsContainer.innerHTML = '';
+        for (let i = 0; i < totalReviews; i++) {
+            const indicator = document.createElement('button');
+            indicator.className = `reviews-indicator ${i === 0 ? 'active' : ''}`;
+            indicator.setAttribute('aria-label', `Go to review ${i + 1}`);
+            indicator.addEventListener('click', () => goToSlide(i));
+            indicatorsContainer.appendChild(indicator);
+        }
+    }
+    
+    // Update carousel position
+    function updateCarousel() {
+        const translateX = -currentIndex * 100;
+        reviewsTrack.style.transform = `translateX(${translateX}%)`;
+        
+        // Update indicators
+        const indicators = document.querySelectorAll('.reviews-indicator');
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentIndex);
+        });
+        
+        // Update navigation buttons
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === totalReviews - 1;
+    }
+    
+    // Go to specific slide
+    function goToSlide(index) {
+        currentIndex = Math.max(0, Math.min(index, totalReviews - 1));
+        updateCarousel();
+        resetAutoSlide();
+    }
+    
+    // Next slide
+    function nextSlide() {
+        if (currentIndex < totalReviews - 1) {
+            currentIndex++;
+        } else {
+            currentIndex = 0; // Loop back to first
+        }
+        updateCarousel();
+    }
+    
+    // Previous slide
+    function prevSlide() {
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = totalReviews - 1; // Loop to last
+        }
+        updateCarousel();
+    }
+    
+    // Auto slide functionality
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(nextSlide, 5000); // 5 seconds
+    }
+    
+    function stopAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+        }
+    }
+    
+    function resetAutoSlide() {
+        stopAutoSlide();
+        startAutoSlide();
+    }
+    
+    // Event listeners
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoSlide();
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoSlide();
+        });
+    }
+    
+    // Pause auto-slide on hover
+    reviewsTrack.addEventListener('mouseenter', stopAutoSlide);
+    reviewsTrack.addEventListener('mouseleave', startAutoSlide);
+    
+    // Touch/swipe support for mobile
+    let startX = 0;
+    let isDragging = false;
+    
+    reviewsTrack.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+        stopAutoSlide();
+    });
+    
+    reviewsTrack.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+    });
+    
+    reviewsTrack.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const endX = e.changedTouches[0].clientX;
+        const diffX = startX - endX;
+        
+        if (Math.abs(diffX) > 50) { // Minimum swipe distance
+            if (diffX > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }
+        
+        resetAutoSlide();
+    });
+    
+    // Initialize
+    createIndicators();
+    updateCarousel();
+    startAutoSlide();
+}
+
 // Initialize components when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize service tabs (for index.html)
+    initServiceTabs();
+    
+    // Initialize reviews carousel (for index.html)
+    initReviewsCarousel();
+    
     // Initialize booking calendar (for index.html)
     if (document.querySelector('.booking-calendar')) {
         new BookingCalendar();
